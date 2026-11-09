@@ -1,0 +1,15 @@
+# KiCad local/user state and backups
+*.kicad_prl
+*-backups/
+fp-info-cache
+_autosave-*
+*.lck
+
+# Stale duplicate copies
+fw16_mxm_adapter (1).*
+
+# Third-party documents and extracts: link to the sources instead of redistributing them
+reference/FrameworkGPU to MXM v0.5.kicad_pcb
+reference/fw16_7040_mainboard_interfaces_schematic.pdf
+reference/framework_pcb_ref/
+reference/evidence/

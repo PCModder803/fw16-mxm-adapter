@@ -1,0 +1,89 @@
+Reference,Value,Footprint,Notes
+J1,FW16_ExpBay_Signal,fw16_mxm:FW16_FXBeam_Signal,Framework Expansion Bay signal interposer. Pinout from FrameworkComputer/ExpansionBay Electrical/README.md; place at the same XY as J2
+J3,AS0B826-S55B-7H,fw16_mxm:MXM3_AS0B826-S55B-7H,"MXM 3.0 Type B socket (target X-Vision RX 6600 XT); S55B chosen against the bay's 9 mm ceiling, 5.5 mm overall, 2.7 mm card gap (confirm on Foxconn drawing). Pinout from ADLINK/Advantech MXM 3.1 tables"
+R20,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R21,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R22,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R23,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R24,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R25,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R26,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R27,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R28,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R29,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R30,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R31,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R32,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R33,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R34,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+R35,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
+C10,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C11,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C12,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C13,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C14,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C15,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C16,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C17,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C18,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C19,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C20,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C21,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C22,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C23,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C24,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+C25,220nF,Capacitor_SMD:C_0402_1005Metric,Card->host PCIe AC-coupling cap (MXM 3.1 sec 3.4.4: both directions on the system board)
+R41,0R,Resistor_SMD:R_0402_1005Metric,"PEX_RST# source: host PEX_RST# (default). Fit R41 OR R42, never both"
+C26,100nF,Capacitor_SMD:C_0402_1005Metric,DP_A DC-blocking cap (MXM: on the system board)
+C27,100nF,Capacitor_SMD:C_0402_1005Metric,DP_A DC-blocking cap (MXM: on the system board)
+C28,100nF,Capacitor_SMD:C_0402_1005Metric,DP_A DC-blocking cap (MXM: on the system board)
+C29,100nF,Capacitor_SMD:C_0402_1005Metric,DP_A DC-blocking cap (MXM: on the system board)
+C30,100nF,Capacitor_SMD:C_0402_1005Metric,DP_A DC-blocking cap (MXM: on the system board)
+C31,100nF,Capacitor_SMD:C_0402_1005Metric,DP_A DC-blocking cap (MXM: on the system board)
+C32,100nF,Capacitor_SMD:C_0402_1005Metric,DP_A DC-blocking cap (MXM: on the system board)
+C33,100nF,Capacitor_SMD:C_0402_1005Metric,DP_A DC-blocking cap (MXM: on the system board)
+C34,100nF,Capacitor_SMD:C_0402_1005Metric,DP_A DC-blocking cap (MXM: on the system board)
+C35,100nF,Capacitor_SMD:C_0402_1005Metric,DP_A DC-blocking cap (MXM: on the system board)
+R1,330k 1%,Resistor_SMD:R_0603_1608Metric,"ID0: EC needs BOARD_VERSION_12 on both IDs (= dual interposer device), window 2040-2197 mV; 330k vs host 100k pull-up ~2.16 V if the pull-up rail is ~2.81 V (inferred from the EC's not-installed level)"
+R2,330k 1%,Resistor_SMD:R_0603_1608Metric,ID1: see R1
+R3,4.7k,Resistor_SMD:R_0603_1608Metric,I2C pull-up
+R4,4.7k,Resistor_SMD:R_0603_1608Metric,I2C pull-up
+R5,10k,Resistor_SMD:R_0603_1608Metric,CLKREQ# pull-up
+R8,10k,Resistor_SMD:R_0603_1608Metric,PROCHOT# pull-up
+R6,10k,Resistor_SMD:R_0603_1608Metric,MXM PRSNT_R pull-up
+R7,10k,Resistor_SMD:R_0603_1608Metric,MXM PRSNT_L pull-up
+R14,100k DNP,Resistor_SMD:R_0603_1608Metric,DNP: not needed - MXM 3.1 Table 3.7: the module carries the 100k DP_A_HPD pull-down; system-side protection only
+R13,0R,Resistor_SMD:R_0603_1608Metric,"PWR_GOOD -> power pin 53 = FBVDD_PWRGD in GPU mode. FW16 mainboard ANDs it with DGPU_PWROK into ALL_GPWRGD (7040 interface schematic p.3, UC77/UC78); left low, ALL_GPWRGD never asserts"
+R36,7.15k 1%,Resistor_SMD:R_0603_1608Metric,"PEX_STD_SW# pull-down: MXM 3.1 Table 3.30 requires one for 8 GT/s systems; NC = short channel, 147k = medium, 7.15k / 0R = long. FW16 channel loss unknown: start at 7.15k"
+R37,10k,Resistor_SMD:R_0603_1608Metric,PWR_GOOD pull-up: MXM 3.1 Table 3.11 requires 10k on the system board
+R38,10k,Resistor_SMD:R_0603_1608Metric,TH_ALERT# pull-up: MXM 3.1 Table 3.11 requires one on the system board
+U2,74LVC1G07,Package_TO_SOT_SMD:SOT-23-5,TI 74LVC1G07DBVR open-drain buffer: GPIO2_EC low (battery) -> MXM PWR_LEVEL low (reduced power). Leave U2 unfitted for always-full power. Needs descriptor gpio2 = GPIO_FUNC_ACDC / OUTPUT_LOW / POWER_S3
+R39,100k,Resistor_SMD:R_0603_1608Metric,"GPIO2_EC pull-down: if the EC leaves the pin as an input (descriptor not changed), the card runs at reduced power rather than floating"
+C44,100nF,Capacitor_SMD:C_0402_1005Metric,U2 VCC bypass
+U3,BR24G32FVT-3GE2,Package_SO:TSSOP-8_4.4x3mm_P0.65mm,"Module EEPROM, 32 Kbit: EC reads 0x50 with 16-bit offsets. A0-A2=GND -> 0x50. WP=GND so the EC can program it. Contents: ExpansionBayConfigurationGenerator PCIE_THERMAL_3RDPARTY with PCIE_MUX_SEL low (keep DP_A AUX) and gpio2 = GPIO_FUNC_ACDC (drives PWR_LEVEL via U2)"
+J2,FW16_ExpBay_Power,fw16_mxm:FW16_FXBeam_Power,Framework Expansion Bay power interposer - pinout from FrameworkComputer/ExpansionBay Electrical/README.md; place at the same XY as J1
+C1,EEH-ZA1V101P,Capacitor_SMD:CP_Elec_8x10.5,"VSYS bulk: Panasonic EEH-ZA1V101P 100 uF 35 V hybrid polymer, 27 mOhm, ~2.3 A ripple (distributor data); 8x10.2 mm (Panasonic datasheet) on CP_Elec_8x10.5 pads; ~10.2 mm tall: place outside the card outline"
+D1,SMBJ20A,Diode_SMD:D_SMB,"Littelfuse SMBJ20A: 20 V standoff (= max VSYS), 22.2-24.5 V breakdown, 32.4 V clamp @ 18.6 A, 600 W"
+U1,TPS25982,fw16_mxm:TI_RGE0024M_VQFN-24_4x4mm_P0.5mm_2EP,"TI TPS25982 eFuse (2.7-24 V, 15 A; abs max IN 30 V). RGE0024M, pad 25 = IN, pad 26 = GND (TI 4223975/B land pattern). TPS25983 is pin-compatible (26 V, 20 A)"
+R15,442k 1%,Resistor_SMD:R_0603_1608Metric,UVLO divider: V = 1.2 V x (R15+R16)/R16 = 6.5 V (MXM PWR_SRC min); EN = 3.7 V at 20 V (abs max 7 V)
+R16,100k 1%,Resistor_SMD:R_0603_1608Metric,UVLO divider bottom (see R15)
+R17,147R 1%,Resistor_SMD:R_0603_1608Metric,"ILIM: R = 1460/I - 0.11 (datasheet Eq 16) -> 147R = 9.9 A, under the host's 14 x 0.75 A = 10.5 A"
+R18,1.33k 1%,Resistor_SMD:R_0603_1608Metric,IMON: R = 3.3 V / (10 A x 246 uA/A) (Eq 18; G_IMON 246 uA/A implied by Eq 18 - confirm in 6.5); 3.27 V at 10 A; test point
+R19,100k,Resistor_SMD:R_0603_1608Metric,Host PWR_EN pull-down: keeps U6 input A low (card off) while the APU GPIO is unconfigured
+C42,4.7nF,Capacitor_SMD:C_0603_1608Metric,"dVdT: C(pF) = 4600 / SR(V/ms) (Eq 3) -> ~1 V/ms, 20 ms ramp; inrush ~1 A per 1 mF of card input capacitance"
+C43,2.2nF,Capacitor_SMD:C_0603_1608Metric,RETRY_DLY: C(pF) = t(us)/46.83 - 4 (Eq 31) -> ~100 ms between retries
+U6,SN74LV1T08DBVR,Package_TO_SOT_SMD:SOT-23-5,"TI SN74LV1T08DBVR single-supply AND / level shifter at VCC 3.3 V: VIH max 1.37 V, so the 1.8 V host PWR_EN reads high; inputs tolerate up to 7 V abs max with VCC off. Y = PWR_EN AND eFuse PG -> MXM PWR_EN (3.3 V push-pull)"
+R40,10k,Resistor_SMD:R_0603_1608Metric,"eFuse PG pull-up (PG is open drain, high once PWR_SRC is in range)"
+C48,100nF,Capacitor_SMD:C_0402_1005Metric,U6 VCC bypass
+R42,0R DNP,Resistor_SMD:R_0603_1608Metric,DNP: alternative PEX_RST# source = power pin 52 (EXT_SSD1_RST# from the EC in SSD-mode descriptors). For the x8 case where the BIOS drops PEX_RST# after POST (forum t/74018 posts 201-203). Remove R41 when fitting; SSD mode reroutes DP_A AUX (route A only)
+C4,EEH-ZA1V101P,Capacitor_SMD:CP_Elec_8x10.5,PWR_SRC bulk near J3: Panasonic EEH-ZA1V101P 100 uF 35 V hybrid polymer
+C2,47uF 10V,Capacitor_SMD:C_1206_3216Metric,+5V bulk near J3 (host 5V_ALW)
+C3,22uF 10V,Capacitor_SMD:C_1206_3216Metric,+3V3 bulk near J3 (host 3V3_ALW)
+J4,AFC58-S04FIA-R1,fw16_mxm:Hefeng_AFC58-S04F_1x04_P0.5mm_Horizontal,"Fan0: Zhejiang Hefeng AFC58-S04FIA-R1 (FW ref design J200/J201), 0.5 mm FPC lower contact; 1 +12V, 2 SPEED, 3 PWM, 4 GND (FW_EXPANSION_BAY_PCB sheet 2)"
+J5,AFC58-S04FIA-R1,fw16_mxm:Hefeng_AFC58-S04F_1x04_P0.5mm_Horizontal,"Fan1: Zhejiang Hefeng AFC58-S04FIA-R1 (FW ref design J200/J201), 0.5 mm FPC lower contact; 1 +12V, 2 SPEED, 3 PWM, 4 GND (FW_EXPANSION_BAY_PCB sheet 2)"
+U4,F75303,Package_SO:MSOP-10_3x3mm_P0.5mm,"Fintek F75303M 10-MSOP 3x3. Pinout from LCFC NM-D471 schematic sheet 77 (US301). 0x4D (8-bit 0x9A): FW16 mainboard UTH1, the same F75303M_MSOP10, is marked 1001_101x (7040 interface schematic p.9). ALERT#/THERM# open-drain, unused here (ref design pulls them up 4.7k/10k to 3V3). Descriptor maps local=ambient, remote1=GPU VR, remote2=VRAM"
+C45,100nF,Capacitor_SMD:C_0402_1005Metric,U4 VDD bypass
+Q1,MMBT3906,Package_TO_SOT_SMD:SOT-23,F75303 remote diode 1: place at the GPU VRM / core area of the MXM card (thermally coupled)
+C46,2.2nF,Capacitor_SMD:C_0402_1005Metric,Remote diode 1 filter cap across D+/D-: 2200pF X7R as CS302/CS303 in LCFC NM-D471 sheet 77
+Q2,MMBT3906,Package_TO_SOT_SMD:SOT-23,F75303 remote diode 2: place at the VRAM area of the MXM card (thermally coupled)
+C47,2.2nF,Capacitor_SMD:C_0402_1005Metric,Remote diode 2 filter cap across D+/D-: 2200pF X7R as CS302/CS303 in LCFC NM-D471 sheet 77

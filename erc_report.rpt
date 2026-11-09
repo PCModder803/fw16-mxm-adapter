@@ -1,0 +1,666 @@
+ERC report (2026-11-07T14:21:21, Encoding UTF8)
+Report includes: Errors, Warnings
+
+***** Sheet /
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(59.69 mm, 469.90 mm): Symbol R1 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(59.69 mm, 476.25 mm): Symbol #PWR023 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 105.41 mm): Symbol #PWR001 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 110.49 mm): Symbol #PWR002 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 115.57 mm): Symbol #PWR003 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 120.65 mm): Symbol #PWR004 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 125.73 mm): Symbol #PWR005 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 130.81 mm): Symbol #PWR006 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 135.89 mm): Symbol #PWR007 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 140.97 mm): Symbol #PWR008 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 146.05 mm): Symbol #PWR009 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 151.13 mm): Symbol #PWR010 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 156.21 mm): Symbol #PWR011 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 161.29 mm): Symbol #PWR012 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 166.37 mm): Symbol #PWR013 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 171.45 mm): Symbol #PWR014 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 176.53 mm): Symbol #PWR015 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 181.61 mm): Symbol #PWR016 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 186.69 mm): Symbol #PWR017 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(76.20 mm, 191.77 mm): Symbol #PWR018 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(80.01 mm, 469.90 mm): Symbol R2 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(80.01 mm, 476.25 mm): Symbol #PWR024 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(119.38 mm, 59.69 mm): Symbol J1 [J1_FW16_ExpBay_Signal]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(119.38 mm, 462.28 mm): Symbol #PWR040 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(119.38 mm, 467.36 mm): Symbol #PWR041 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(119.38 mm, 472.44 mm): Symbol #PWR042 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(119.38 mm, 477.52 mm): Symbol #PWR043 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(134.62 mm, 469.90 mm): Symbol U3 [EEPROM_24xx32]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(149.86 mm, 462.28 mm): Symbol #PWR045 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(149.86 mm, 467.36 mm): Symbol #PWR044 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(165.10 mm, 546.10 mm): Symbol #FLG001 [PWR_FLAG]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(165.10 mm, 553.72 mm): Symbol #FLG002 [PWR_FLAG]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(170.18 mm, 543.56 mm): Symbol #PWR094 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(170.18 mm, 549.91 mm): Symbol C1 [C_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(170.18 mm, 556.26 mm): Symbol #PWR095 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(180.34 mm, 463.55 mm): Symbol #PWR025 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(180.34 mm, 469.90 mm): Symbol R3 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 59.69 mm): Symbol R20 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 64.77 mm): Symbol R21 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 69.85 mm): Symbol R22 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 74.93 mm): Symbol R23 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 80.01 mm): Symbol R24 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 85.09 mm): Symbol R25 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 90.17 mm): Symbol R26 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 95.25 mm): Symbol R27 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 100.33 mm): Symbol R28 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 105.41 mm): Symbol R29 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 110.49 mm): Symbol R30 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 115.57 mm): Symbol R31 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 120.65 mm): Symbol R32 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 125.73 mm): Symbol R33 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 130.81 mm): Symbol R34 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 135.89 mm): Symbol R35 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 146.05 mm): Symbol C10 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 151.13 mm): Symbol C11 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 156.21 mm): Symbol C12 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 161.29 mm): Symbol C13 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 166.37 mm): Symbol C14 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 171.45 mm): Symbol C15 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 176.53 mm): Symbol C16 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 181.61 mm): Symbol C17 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 186.69 mm): Symbol C18 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 191.77 mm): Symbol C19 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 196.85 mm): Symbol C20 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 201.93 mm): Symbol C21 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 207.01 mm): Symbol C22 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 212.09 mm): Symbol C23 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 217.17 mm): Symbol C24 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 222.25 mm): Symbol C25 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 242.57 mm): Symbol R41 [R_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 257.81 mm): Symbol C26 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 262.89 mm): Symbol C27 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 267.97 mm): Symbol C28 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 273.05 mm): Symbol C29 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 278.13 mm): Symbol C30 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 283.21 mm): Symbol C31 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 288.29 mm): Symbol C32 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 293.37 mm): Symbol C33 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 298.45 mm): Symbol C34 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(185.42 mm, 303.53 mm): Symbol C35 [C_H]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(195.58 mm, 463.55 mm): Symbol #PWR026 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(195.58 mm, 469.90 mm): Symbol R4 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(195.58 mm, 543.56 mm): Symbol #PWR096 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(195.58 mm, 549.91 mm): Symbol D1 [TVS_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(195.58 mm, 556.26 mm): Symbol #PWR097 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(199.39 mm, 613.41 mm): Symbol #PWR102 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(199.39 mm, 619.76 mm): Symbol R15 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(214.63 mm, 463.55 mm): Symbol #PWR027 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(214.63 mm, 469.90 mm): Symbol R5 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(214.63 mm, 619.76 mm): Symbol R16 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(214.63 mm, 626.11 mm): Symbol #PWR103 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(222.25 mm, 549.91 mm): Symbol #PWR098 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(222.25 mm, 560.07 mm): Symbol #PWR099 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(229.87 mm, 463.55 mm): Symbol #PWR028 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(229.87 mm, 469.90 mm): Symbol R8 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(229.87 mm, 619.76 mm): Symbol R17 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(229.87 mm, 626.11 mm): Symbol #PWR104 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(240.03 mm, 549.91 mm): Symbol U1 [TPS25982]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(245.11 mm, 463.55 mm): Symbol #PWR029 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(245.11 mm, 469.90 mm): Symbol R6 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(245.11 mm, 619.76 mm): Symbol R18 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(245.11 mm, 626.11 mm): Symbol #PWR105 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(254.00 mm, 59.69 mm): Symbol J3 [J3_MXM3_Card]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(257.81 mm, 549.91 mm): Symbol #PWR100 [PWR_SRC]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(257.81 mm, 590.55 mm): Symbol #PWR101 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(260.35 mm, 463.55 mm): Symbol #PWR030 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(260.35 mm, 469.90 mm): Symbol R7 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(260.35 mm, 619.76 mm): Symbol R19 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(260.35 mm, 626.11 mm): Symbol #PWR106 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(275.59 mm, 619.76 mm): Symbol C42 [C_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(275.59 mm, 626.11 mm): Symbol #PWR107 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(289.56 mm, 469.90 mm): Symbol R13 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(289.56 mm, 619.76 mm): Symbol C43 [C_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(289.56 mm, 626.11 mm): Symbol #PWR108 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(294.64 mm, 546.10 mm): Symbol #FLG003 [PWR_FLAG]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(297.18 mm, 115.57 mm): Symbol #PWR019 [PWR_SRC]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(297.18 mm, 120.65 mm): Symbol #PWR020 [+5V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(297.18 mm, 125.73 mm): Symbol #PWR021 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(297.18 mm, 130.81 mm): Symbol #PWR022 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(299.72 mm, 543.56 mm): Symbol #PWR114 [PWR_SRC]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(299.72 mm, 549.91 mm): Symbol C4 [C_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(299.72 mm, 556.26 mm): Symbol #PWR115 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(304.80 mm, 469.90 mm): Symbol R14 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(304.80 mm, 476.25 mm): Symbol #PWR031 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(304.80 mm, 613.41 mm): Symbol #PWR111 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(304.80 mm, 619.76 mm): Symbol R40 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(320.04 mm, 469.90 mm): Symbol R36 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(320.04 mm, 476.25 mm): Symbol #PWR032 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(335.28 mm, 463.55 mm): Symbol #PWR033 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(335.28 mm, 469.90 mm): Symbol R37 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(340.36 mm, 546.10 mm): Symbol #FLG004 [PWR_FLAG]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(345.44 mm, 524.51 mm): Symbol R39 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(345.44 mm, 530.86 mm): Symbol #PWR037 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(345.44 mm, 543.56 mm): Symbol #PWR116 [+5V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(345.44 mm, 549.91 mm): Symbol C2 [C_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(345.44 mm, 556.26 mm): Symbol #PWR117 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(345.44 mm, 607.06 mm): Symbol #PWR110 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(345.44 mm, 619.76 mm): Symbol U6 [SN74LV1T08]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(345.44 mm, 635.00 mm): Symbol #PWR109 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(350.52 mm, 463.55 mm): Symbol #PWR034 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(350.52 mm, 469.90 mm): Symbol R38 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(379.73 mm, 613.41 mm): Symbol #PWR112 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(379.73 mm, 619.76 mm): Symbol C48 [C_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(379.73 mm, 626.11 mm): Symbol #PWR113 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(384.81 mm, 511.81 mm): Symbol #PWR036 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(384.81 mm, 524.51 mm): Symbol U2 [74LVC1G07]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(384.81 mm, 539.75 mm): Symbol #PWR035 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(384.81 mm, 546.10 mm): Symbol #FLG005 [PWR_FLAG]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(389.89 mm, 543.56 mm): Symbol #PWR118 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(389.89 mm, 549.91 mm): Symbol C3 [C_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(389.89 mm, 556.26 mm): Symbol #PWR119 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(400.05 mm, 619.76 mm): Symbol R42 [R_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(410.21 mm, 518.16 mm): Symbol #PWR038 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(410.21 mm, 524.51 mm): Symbol C44 [C_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(410.21 mm, 530.86 mm): Symbol #PWR039 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(434.34 mm, 80.01 mm): Symbol #PWR075 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(434.34 mm, 85.09 mm): Symbol #PWR076 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(434.34 mm, 90.17 mm): Symbol #PWR077 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(434.34 mm, 125.73 mm): Symbol #PWR078 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(434.34 mm, 130.81 mm): Symbol #PWR079 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(434.34 mm, 135.89 mm): Symbol #PWR080 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(434.34 mm, 140.97 mm): Symbol #PWR081 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(434.34 mm, 146.05 mm): Symbol #PWR082 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(434.34 mm, 166.37 mm): Symbol #PWR083 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(434.34 mm, 181.61 mm): Symbol #PWR084 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(434.34 mm, 242.57 mm): Symbol #PWR085 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(444.50 mm, 502.92 mm): Symbol #PWR124 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(444.50 mm, 509.27 mm): Symbol C45 [C_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(444.50 mm, 515.62 mm): Symbol #PWR125 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(452.12 mm, 469.90 mm): Symbol #PWR122 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(469.90 mm, 469.90 mm): Symbol U4 [F75303]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(480.06 mm, 80.01 mm): Symbol J2 [J2_FW16_ExpBay_Power]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 80.01 mm): Symbol #PWR046 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 85.09 mm): Symbol #PWR047 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 90.17 mm): Symbol #PWR048 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 95.25 mm): Symbol #PWR049 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 100.33 mm): Symbol #PWR050 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 105.41 mm): Symbol #PWR051 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 110.49 mm): Symbol #PWR052 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 115.57 mm): Symbol #PWR053 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 120.65 mm): Symbol #PWR054 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 125.73 mm): Symbol #PWR055 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 130.81 mm): Symbol #PWR056 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 135.89 mm): Symbol #PWR057 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 140.97 mm): Symbol #PWR058 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 146.05 mm): Symbol #PWR059 [VSYS]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 151.13 mm): Symbol #PWR060 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 156.21 mm): Symbol #PWR061 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 161.29 mm): Symbol #PWR062 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 166.37 mm): Symbol #PWR063 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 171.45 mm): Symbol #PWR064 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 176.53 mm): Symbol #PWR065 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 181.61 mm): Symbol #PWR066 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 186.69 mm): Symbol #PWR067 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 191.77 mm): Symbol #PWR068 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 196.85 mm): Symbol #PWR069 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 201.93 mm): Symbol #PWR070 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 207.01 mm): Symbol #PWR071 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 212.09 mm): Symbol #PWR086 [+5V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 217.17 mm): Symbol #PWR087 [+5V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 222.25 mm): Symbol #PWR088 [+5V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 227.33 mm): Symbol #PWR089 [+5V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 232.41 mm): Symbol #PWR072 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 237.49 mm): Symbol #PWR073 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 242.57 mm): Symbol #PWR074 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 247.65 mm): Symbol #PWR090 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 252.73 mm): Symbol #PWR091 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 257.81 mm): Symbol #PWR092 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(485.14 mm, 262.89 mm): Symbol #PWR093 [+3V3]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(487.68 mm, 490.22 mm): Symbol #PWR123 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(544.83 mm, 469.90 mm): Symbol Q1 [Q_PNP]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(560.07 mm, 509.27 mm): Symbol C46 [C_V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(570.23 mm, 80.01 mm): Symbol J4 [FAN_4P]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(570.23 mm, 115.57 mm): Symbol J5 [FAN_4P]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(577.85 mm, 95.25 mm): Symbol #PWR120 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'pwr'
+    ; warning
+    @(577.85 mm, 130.81 mm): Symbol #PWR121 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(585.47 mm, 469.90 mm): Symbol Q2 [Q_PNP]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'fw16'
+    ; warning
+    @(599.44 mm, 509.27 mm): Symbol C47 [C_V]
+
+ ** ERC messages: 218  Errors 0  Warnings 218
+
+ ** Ignored checks:
+    - Global label only appears once in the schematic
+    - Four connection points are joined together
+    - SPICE model issue
+    - Assigned footprint doesn't match footprint filters

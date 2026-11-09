@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "fw16_mxm")(type "KiCad")(uri "${KIPRJMOD}/fw16_mxm.pretty")(options "")(descr "Project footprints: FW16 interposers and MXM socket"))
+)
