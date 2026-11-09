@@ -222,6 +222,19 @@ two Framework/community files in `reference/` are kept locally and not published
   host's level. U6 stays: its 1.35 V input threshold works whether the host drives 1.8 V or 3.3 V, and it
   also holds the card off until the eFuse reports power good.
 
+### 7b. PCB layout: next step after the PCIe test board is measured
+- Fab: JLCPCB (user's choice, 2026-11-08). Use one of JLCPCB's published impedance-controlled stackups at
+  1.2 mm and their impedance calculator for the 85 ohm PCIe / DP pairs; pick the layer count when routing.
+- First a mechanical placement draft (outline, J1/J2/J3/J4/J5 placed, card outline, height keep-outs, 3D
+  stack under the flat cover), marked "not for fab". PCIe routing only after that.
+- To measure on Framework's PCIe test board:
+  - board thickness and outline;
+  - which side the ES00000NY00 inserts are soldered on, and their pad/ring size;
+  - interposer screws to the two bay-to-laptop posts (35.8 mm apart): X and Y offsets;
+  - shell side wall to the first interposer screw.
+- Assembly: J3 (Foxconn AS0B826) and the Framework inserts are unlikely to be in JLCPCB's parts library;
+  plan to source them separately or hand-solder.
+
 ## Questions for Framework (no graphics module available here)
 
 ### 8. Power interposer pins 52/53/54 in GPU mode: done (schematic changed)
