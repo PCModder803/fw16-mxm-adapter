@@ -28,21 +28,22 @@ The community board this started from is on the Framework forum (t/74018).
 | PEX_RST# source | R41 0R (fitted): host PEX_RST#. R42 0R DNP: power pin 52 (EC's EXT_SSD1_RST# in SSD-mode descriptors). Fit one only | Fallback for the BIOS dropping PEX_RST# with x8 descriptors (forum t/74018 posts 201-203) |
 | Thermal / panel | TH_OVERT#, TH_ALERT#, PNL_* straight J1 <-> J3 | community board, a-little-wifi |
 | Module EEPROM | U3 BR24G32 (32 Kbit) at 0x50 on I2C_*_ALW | FW EC gpu_configuration.c reads 0x50 with 16-bit offsets |
-| Module ID | R1/R2 330k on ID0/ID1 -> BOARD_VERSION_12 on both = "dual interposer device" | FW EC gpu.c + adc.c thresholds (pull-up rail inferred) |
+| Module ID | R1/R2 330k on ID0/ID1 -> BOARD_VERSION_12 on both = "dual interposer device" | FW EC gpu.c + adc.c thresholds; forum t/74018 original poster: 330k always passed detection |
 | Power pins 52/53 | R13 0R: PWR_GOOD -> pin 53 (FBVDD_PWRGD in GPU mode); pin 52 (GC6_FB_EN3V3) NC; MXM SMB_CLK/DAT NC | FW16 7040 mainboard interface schematic p.3 (UC77 / UC78) |
 | Fans (graphics bay) | J4/J5 Hefeng AFC58-S04FIA-R1: 1 +12V, 2 SPEED, 3 PWM, 4 GND | FW_EXPANSION_BAY_PCB sheet 2 pin table; Hefeng AFC58 drawing; Cooler Master UMA fan spec (FPC 1 = -, 4 = +, mirrored) |
-| Fan-control sensor | U4 F75303M (MSOP-10) @0x4D on I2C_*_ALW, remote diodes Q1/Q2 (MMBT3906) on the card's VRM / VRAM, C46/C47 2.2 nF across D+/D- | Framework PCIE_THERMAL_3RDPARTY descriptor; pinout and filter caps from LCFC NM-D471 sheet 77; address 0x4D (8-bit 0x9A) from the FW16 mainboard's own F75303M (7040 interface schematic p.9) |
+| Fan-control sensor | U4 F75303M (MSOP-10) @0x4D on I2C_*_ALW, remote diodes Q1/Q2 (MMBT3906) on the card's VRM / VRAM, C46/C47 2.2 nF across D+/D- | Framework PCIE_THERMAL_3RDPARTY descriptor; pinout, filter caps and address 0x4D (8-bit 0x9A) from the FW16 mainboard's own F75303M (7040 interface schematic p.9) |
 
 ## Footprints
 - Stock KiCad footprints for passives, D1 (D_SMB), U3 (TSSOP-8) and U4 (MSOP-10_3x3mm_P0.5mm).
 - U4 F75303M pinout: 1 VCC, 2 DP1, 3 DN1, 4 DP2, 5 DN2, 6 GND, 7 THERM#, 8 ALERT#, 9 SDA, 10 SCL, read
-  from the LCFC NM-D471 laptop schematic, sheet 77 (`reference/evidence/lcfc_nmd471_f75303m_pinout.png`).
+  from the FW16 mainboard's own sensor UTH1 (7040 interface schematic p.9).
 - `TI_RGE0024M_VQFN-24_4x4mm_P0.5mm_2EP` (U1): TI example board layout 4223975/B. Pads 0.575 x 0.24 at
   0.5 mm, rows at 3.825 mm; pad 25 (IN) 2.7 x 1.45 at y -0.625, pad 26 (GND) 2.7 x 0.85 at y +0.925.
   Paste is not windowed yet; use TI's stencil drawing.
 - `Hefeng_AFC58-S04F_1x04_P0.5mm_Horizontal` (J4/J5): Hefeng drawing. Pads 0.30 x 1.10 at 0.5 mm; nail pads
   1.0 x 2.0, inner edge 1.60 from pin 1, top edge 1.60 below the signal pads (read off the drawing; check it).
-- Source drawings for both, and for the fan pinout, are in `reference/evidence/`.
+- Crops of the source drawings for both, and for the fan pinout, are kept locally in `reference/evidence/`
+  (not published here).
 - The interposer and MXM footprints in `fw16_mxm.pretty` were built from the community board in `reference/`:
   - `FW16_FXBeam_Signal` / `FW16_FXBeam_Power`: the community interposer footprint split in two, with pads
     renumbered by position to the Framework README pin numbers. This also removes the duplicate PJ1/PJ2/PJ3
@@ -53,7 +54,7 @@ The community board this started from is on the Framework forum (t/74018).
     Foxconn drawing). The adapter PCB is 1.2 mm, matching Framework's reference board and its M2 inserts.
   - The 2.7 mm interposer screw holes are 16.65 mm apart, matching Framework's FW_EXPANSION_BAY_PCB_0807
     drawing (`reference/framework_pcb_ref/`). They still need a solder ring for the ES00000NY00 insert.
-- Every symbol pin has a matching footprint pad (checked from the netlist); all 78 parts have footprints.
+- Every symbol pin has a matching footprint pad (checked from the netlist); all 88 parts have footprints.
 
 ## How the FW16 EC handles the bay (from FrameworkComputer/EmbeddedController, lotus sources)
 - The EC reads ID0/ID1 on its ADC. BOARD_VERSION_12 on both is "dual interposer device". The bay only
@@ -78,8 +79,8 @@ The community board this started from is on the Framework forum (t/74018).
   controller, and GPIO2_EC is the AC/DC-mode output. GPIO3_EC is unused.
 
 ## Placeholders still in the design (TBD)
-- U4 F75303M ALERT#/THERM# are left unconnected; the LCFC design pulls them up (4.7k / 10k to 3V3) only
-  because its EC uses them.
+- U4 F75303M ALERT#/THERM# are open-drain and left unconnected; they need pull-ups only if something
+  reads them.
 - R14 (DNP): not needed. MXM 3.1 puts the 100k DP_A_HPD pull-down on the module.
 - Unconnected by choice: TH_PWM, GPIO0/1/3_EC, DGPU_PWM_SEL, WAKE#, MXM SMB_CLK/DAT, power pins 52/54.
 - Cover: the stock cover is too low over the card. It needs a 3D-printed replacement whose inside is flat

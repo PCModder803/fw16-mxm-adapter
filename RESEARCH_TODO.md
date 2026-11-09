@@ -1,14 +1,16 @@
 # What still needs a document, a measurement or a laptop
 
-Everything below was searched for and could not be found in public sources. Each item says what it
-blocks, where to look, and what to bring back.
+Open items, plus the findings that resolved earlier ones. Each open item says what it blocks, where to
+look, and what to bring back. Files under `reference/evidence/` and `reference/framework_pcb_ref/` and the
+two Framework/community files in `reference/` are kept locally and not published in this repository.
 
 ## Documents to get
 
 ### 1. Fintek F75303M SMBus address (U4): done
 - Resolved by the FW16 7040 mainboard interface schematic (`reference/fw16_7040_mainboard_interfaces_schematic.pdf`,
   page 9 "THERMAL SENSOR"). The mainboard's own sensor UTH1 is "F75303M_MSOP10" (Compal PN
-  SA000046C00), with the same pinout as the LCFC sheet and the note "SMB3_Address 1001_101xb 0x9A".
+  SA000046C00), pinout 1 VCC, 2 DP1, 3 DN1, 4 DP2, 5 DN2, 6 GND, 7 THERM#, 8 ALERT#, 9 SDA, 10 SCL, with
+  the note "SMB3_Address 1001_101xb 0x9A".
   8-bit 0x9A = 7-bit 0x4D, which is what the descriptor expects. So the plain F75303M answers at 0x4D.
   (The mainboard sensor is on a different EC bus, SMB3, so there's no conflict with U4 on the ALW bus.)
 - The mainboard uses MMBT3904 (NPN) as its remote diodes, with 2200 pF across each pair; MMBT3906 (PNP)
@@ -75,7 +77,7 @@ blocks, where to look, and what to bring back.
 - The footprint assumes S55B. Stack heights confirmed by the user (2026-11-03): S55B = 5.5 mm,
   S78B = 7.8 mm. Still to check on the drawing: that the pad pattern and board-lock/peg holes are the same
   for both, so the footprint doesn't change with height.
-- The user's 15 mm runs from the card's lowest back-side component to the top of the heatsink. The stack
+- Earlier estimate (before the shell arrived): the user's 15 mm runs from the card's lowest back-side component to the top of the heatsink. The stack
   height is measured to the card PCB's underside, and the 1.8 mm back-side caps sit inside that gap. So
   above the stack: 15 - 1.8 = ~13.2 mm.
 - CORRECTION (2026-11-06): 5.5 mm is the connector's overall height, not the gap under the card. Critical
@@ -91,15 +93,16 @@ blocks, where to look, and what to bring back.
   MM70-314B1-2-R300, is 6.7 mm overall with 3 mm post height (MB-370 drawing), which is taller, not lower.
 - Other parts listed with a 2.7 mm gap: Aces 91781-314xx, 5.2 mm overall (Critical Link wiki). No gain under
   the card. No active socket with a gap under 2.7 mm has been found.
-- See item 6 for the fit against the shell's 9 mm ceiling.
+- See item 6 for the fit in the shell.
 
 ### 5. C1/C4 clearance (EEH-ZA1V101P)
 - Panasonic datasheet confirms 8 x 10.2 mm; the CP_Elec_8x10.5 footprint fits.
 - Remaining: measure in the bare shell that there is at least ~10.5 mm from the adapter's top surface to
   the cover beside the card. The caps must sit outside the card outline.
-- Shell result (2026-11-06): ~13.7 mm above the adapter is enough height, but the card fills the 107 x ~80 mm
-  usable area, so there is no obvious spot beside it. Look for 8 mm spots in the corners next to the fans, or
-  change C1/C4 to low-profile parts that fit under the card (~3.5 mm with S55B).
+- Shell result (2026-11-06): ~14.1 mm above a 1.2 mm adapter (15.3 mm flat cover) is enough height, but the
+  card fills the 107 x ~80 mm usable area, so there is no obvious spot beside it. Look for 8 mm spots in the
+  corners next to the fans, or change C1/C4 to low-profile parts that fit under the card (2.7 mm gap with
+  S55B, less the card's 1.8 mm back-side caps where they overlap).
 
 ## Measurements
 
@@ -119,13 +122,14 @@ blocks, where to look, and what to bring back.
   - Top of standoff to ceiling: 9 mm over the card/heatsink area, 15.3 mm over the fans. (The 15.3 mm was
     first taken as the ceiling everywhere; 9 mm governs the card.)
   - Top of standoff to floor: 3.3 mm. Interior over the card is 12.3 mm floor to ceiling.
-  - Card: die top is 1.67 mm above the card PCB. Card PCB thickness not yet measured.
+  - Card: die top is 1.67 mm above the card PCB. Card PCB 1.35 mm (measured 2026-11-07, below).
   - Interposer location: the laptop-side long edge, circled in `reference/card_photos/1000010392.jpg`.
     That photo also shows raised plastic ribs on the rear third of the floor; their height is unmeasured.
   - USB-C opening: 8.6 x 3.25 mm, centred across the width, bottom 2.4 mm above the standoff.
   - Usable area: 107 mm wide (fan to fan) x ~80 mm deep.
   - Fans: 72.2 mm wide, 10.4 mm tall, 20 mm from fan to rear exhaust vent (space for fin stacks).
-- Height result against the 9 mm ceiling, adapter on the standoffs, bare card with no cooler. The card's
+- Superseded by the flat-cover decision below; kept for the record.
+  Height result against the 9 mm ceiling, adapter on the standoffs, bare card with no cooler. The card's
   tallest front parts are 6.4 mm above its underside (8.2 mm bare - 1.8 mm back caps). Spacing is the
   PCB-to-card gap from item 4:
 
@@ -151,17 +155,21 @@ blocks, where to look, and what to bring back.
 - Chosen fix: the user prints a replacement cover with its inside flat at the high level (15.3 mm above the
   standoff) across the bay, keeping the stock outer envelope. With S55B:
 
+  Card underside = adapter + 2.7 mm. Inductor tops = underside + 1.35 + 5.05 = underside + 6.4 mm.
+  Die top = underside + 1.35 + 1.67 = underside + 3.02 mm.
+
   | Adapter PCB | Card underside | Inductor tops | Clear under 15.3 | Die top | Room above die |
   |---|---|---|---|---|---|
-  | 1.6 mm | 4.3 mm | 10.75 mm | 4.55 mm | 7.32 mm | ~8.0 mm |
-  | 1.0 mm | 3.7 mm | 10.15 mm | 5.15 mm | 6.72 mm | ~8.6 mm |
+  | 1.6 mm | 4.3 mm | 10.7 mm | 4.6 mm | 7.32 mm | ~8.0 mm |
+  | 1.2 mm (chosen) | 3.9 mm | 10.3 mm | 5.0 mm | 6.92 mm | ~8.4 mm |
+  | 1.0 mm | 3.7 mm | 10.1 mm | 5.2 mm | 6.72 mm | ~8.6 mm |
 
-  So the adapter goes back to a standard 1.6 mm board. The cooler gets ~8 mm over the die and ~4.5 mm over
-  the inductors.
+  1.2 mm is chosen to match Framework's board and inserts (see Consequences below). The cooler gets
+  ~8.4 mm over the die and ~5 mm over the inductors.
 - User accepts (2026-11-07) that the taller cover may limit how far the screen tilts back.
 - The two screw posts at the interposer edge are 35.8 mm apart, centre to centre. They fasten the bay to the
   laptop. The interposer's own threaded inserts (Framework part ES00000NY00, M2, per the ExpansionBay repo)
-  and the board outline come from FW_EXPANSION_BAY_PCB_0807 (PDF/DXF) in the repo, not yet downloaded.
+  and the board outline come from FW_EXPANSION_BAY_PCB_0807 (PDF/DXF) in the ExpansionBay repo (read below).
 - Framework reference PCB drawing (`reference/framework_pcb_ref/FW_EXPANSION_BAY_PCB_0807.pdf`, read 2026-11-07).
   This is the fan-only (UMA) module's board, not the graphics shell, but the interposer is the same:
   - Board 118.65 mm wide, 1.2 mm thick. Interposer edge features from the left mounting hole: +32 mm insert 1,
@@ -178,7 +186,7 @@ blocks, where to look, and what to bring back.
 - Consequences:
   - Use a 1.2 mm adapter board, as Framework does, not 1.6 mm. The interposer screw length is set by
     Framework's parts, so a thicker board loses thread engagement. With S55B on 1.2 mm under the flat cover:
-    card underside 3.9 mm, inductor tops 10.35 mm (4.95 mm clear), die top 6.92 mm, ~8.4 mm above the die.
+    card underside 3.9 mm, inductor tops 10.3 mm (5.0 mm clear), die top 6.92 mm, ~8.4 mm above the die.
   - Footprint change still needed: the 2.7 mm holes are bare NPTH. The insert needs a copper ring (>4.0 mm) to
     solder its flange on the side opposite the interposer. Confirm which side and the barrel fit on Framework's
     PCIe test board before editing the footprints.
@@ -206,7 +214,9 @@ blocks, where to look, and what to bring back.
 - Or ask Framework (question 3 below).
 - Mostly answered (2026-11-08, t/74018 original poster): their boards always passed detection with 330k on
   ID0/ID1, checked by probing the interposer pads. They believe the pull-ups are 3.3 V. So 330k stays, and
-  the measurement on the first build is now just a check.
+  the measurement on the first build is now just a check. Note: 3.3 V through 100k into 330k gives 2.53 V,
+  above the 2040-2197 mV window, so if the rail really is 3.3 V the pull-up is not 100k. The empirical
+  result is what counts; the measurement will settle the numbers.
 - Same reply: they got full 20 V on VSYS by flashing a suitable descriptor to the EEPROM, matching the plan.
   They did not level-shift PWR_EN. Since their module turned on, its PWR_EN input evidently accepted the
   host's level. U6 stays: its 1.35 V input threshold works whether the host drives 1.8 V or 3.3 V, and it
@@ -296,8 +306,9 @@ blocks, where to look, and what to bring back.
   card may already use in full, so check that first.
 - Opening measured in item 6. It spans 2.4-5.65 mm above the standoff, which is the same height band as the
   card, and the card already reaches about to the rear limit of the usable area. So a receptacle may not fit
-  behind the card: check the gap between the card edge and the rear wall. A top-mount receptacle on a 1.6 mm
-  adapter would also sit ~0.8 mm low. Treat USB-C as a later revision.
+  behind the card: check the gap between the card edge and the rear wall. A top-mount receptacle on the
+  1.2 mm adapter would also sit ~1.2 mm low (board top 1.2 mm vs opening bottom 2.4 mm). Treat USB-C as a
+  later revision.
 - Still needed: which MXM DP port is live (ask X-Vision).
 
 ## MXM 3.1 spec findings (v3.1 r1.0, read 2026-11-03)
@@ -321,14 +332,15 @@ blocks, where to look, and what to bring back.
   power by at least 20% within 50 ms. The spec says the system should pull it low on battery or when
   PWR_SRC could exceed 10 A, exactly the FW16 battery case. Done: U2 (74LVC1G07) drives it from
   GPIO2_EC, with R39 100k pull-down and C44 bypass. The FW EC drives GPIO2_EC with extpower_is_present()
-  (any external power), not the README's ">=180 W", once the descriptor sets gpio2 = GPIO_FUNC_ACDC.
+  (any external power), not the ">=180 W" in Framework's ExpansionBay README, once the descriptor sets
+  gpio2 = GPIO_FUNC_ACDC.
 - Ask X-Vision how much power the card drops to with PWR_LEVEL low (the spec only requires >=20%).
 - SMBus (sec 3.4.12): the card's GPU temperature sensor answers at 7-bit 0x4C, 0x4F, 0x2B or 0x19. The
   F75303 (0x4D) sits on a different bus (ALW), so there is no conflict.
 
 ## FW16 7040 mainboard interface schematic findings (read 2026-11-04)
 Source: FrameworkComputer/Framework-Laptop-16, `Mainboard/Mainboard_Interfaces_Schematic_Framework_Laptop_16_7040_Series.pdf`
-(local copy in `reference/`). Page 3 is the expansion-bay connector pair: JFXB2 = signal, JFXB1 = power,
+(kept locally, not published here). Page 3 is the expansion-bay connector pair: JFXB2 = signal, JFXB1 = power,
 both UNIMI FBGCBE057-A-X, pins lettered A1-L8.
 - F75303 address 0x4D (page 9): see item 1.
 - Pins 52/53/54 and the AUX/SSD-clock switch: see item 8.
@@ -390,5 +402,5 @@ ever enumerated as a GPU ("we don't even have a functional design"), work paused
 - Fan connector maker and land pattern: Zhejiang Hefeng AFC58-S04FIA-R1, 0.5 mm, lower contact
   (`hefeng_afc58_land_pattern.png`). Verify the nail-pad position before fab.
 - TPS25982 package: RGE0024M; pad 25 = IN, pad 26 = GND (`ti_rge0024m_land_pattern.png`).
-- F75303M pinout: 1 VCC, 2 DP1, 3 DN1, 4 DP2, 5 DN2, 6 GND, 7 THERM#, 8 ALERT#, 9 SDA, 10 SCL; 2200 pF across
-  each D+/D- pair; 0.1 uF on VCC (LCFC NM-D471 sheet 77, `lcfc_nmd471_f75303m_pinout.png`).
+- F75303M pinout and 2200 pF across each D+/D- pair: see item 1 (FW16 7040 interface schematic p.9).
+  0.1 uF bypass on VCC (C45) is standard practice.

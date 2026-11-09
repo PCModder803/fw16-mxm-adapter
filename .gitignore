@@ -13,3 +13,6 @@ reference/FrameworkGPU to MXM v0.5.kicad_pcb
 reference/fw16_7040_mainboard_interfaces_schematic.pdf
 reference/framework_pcb_ref/
 reference/evidence/
+
+# Intermediate analysis of the community board (derived from its unlicensed file)
+reference/analysis/

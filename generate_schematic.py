@@ -122,10 +122,10 @@ for side, x, a in ((EF_LEFT, -15.24, 0), (EF_RIGHT, 15.24, 180)):
 mk_lib("fw16:TPS25982", "U", "TPS25982", rect(-10.16, 5.08, 10.16, -(len(EF_RIGHT) - 1) * 5.08 - 5.08), efp)
 
 # Fintek F75303 (10-MSOP, 3.3 V; 1 local + 2 remote diode channels). Framework's PCIE_THERMAL_3RDPARTY
-# descriptor drives the bay fans from an F75303 at 0x4D on the module's ALW I2C bus. Pin numbers from the
-# LCFC NM-D471 schematic (sheet 77 "Thermal", US301 F75303M_MSOP10): 1 VCC, 2 DP1, 3 DN1, 4 DP2, 5 DN2,
-# 6 GND, 7 THERM#, 8 ALERT#, 9 SDA, 10 SCL. Address: the FW16 mainboard's own UTH1 "F75303M_MSOP10"
-# (7040 interface schematic p.9, same pinout) is marked "SMB3_Address 1001_101xb 0x9A" = 7-bit 0x4D.
+# descriptor drives the bay fans from an F75303 at 0x4D on the module's ALW I2C bus. Pin numbers and
+# address from the FW16 mainboard's own sensor UTH1 "F75303M_MSOP10" (Framework 7040 mainboard interface
+# schematic p.9): 1 VCC, 2 DP1, 3 DN1, 4 DP2, 5 DN2, 6 GND, 7 THERM#, 8 ALERT#, 9 SDA, 10 SCL;
+# marked "SMB3_Address 1001_101xb 0x9A" = 7-bit 0x4D.
 F75_L = [("VDD", "1"), ("D1+", "2"), ("D1-", "3"), ("D2+", "4"), ("D2-", "5")]
 F75_R = [("SCL", "10"), ("SDA", "9"), ("ALERT#", "8"), ("THERM#", "7"), ("GND", "6")]
 mk_lib("fw16:F75303", "U", "F75303", rect(-10.16, 5.08, 10.16, -22.86),
@@ -137,7 +137,7 @@ mk_lib("fw16:74LVC1G07", "U", "74LVC1G07", rect(-5.08, 5.08, 5.08, -7.62), [
     pin("GND", "3", "power_in", 0, -12.7, 90), pin("Y", "4", "open_collector", 10.16, -2.54, 180),
     pin("VCC", "5", "power_in", 0, 10.16, 270)])
 # Single-supply AND gate / level shifter (TI SN74LV1T08 DBV, SOT-23-5: 1 A, 2 B, 3 GND, 4 Y, 5 VCC;
-# datasheet SCLS739F Table 5-1, reference/evidence/ti_sn74lv1t08_datasheet.pdf). VIH max 1.37 V at VCC 3-3.3 V.
+# TI datasheet SCLS739F Table 5-1). VIH max 1.37 V at VCC 3-3.3 V.
 mk_lib("fw16:SN74LV1T08", "U", "SN74LV1T08", rect(-5.08, 5.08, 5.08, -7.62), [
     pin("A", "1", "input", -10.16, 2.54, 0), pin("B", "2", "input", -10.16, -2.54, 0),
     pin("GND", "3", "power_in", 0, -12.7, 90), pin("Y", "4", "output", 10.16, -2.54, 180),
@@ -424,7 +424,7 @@ place("fw16:J1_FW16_ExpBay_Signal", "J1", "FW16_ExpBay_Signal", J1X, J1Y,
       note="Framework Expansion Bay signal interposer. Pinout from FrameworkComputer/ExpansionBay Electrical/README.md; place at the same XY as J2")
 place("fw16:J3_MXM3_Card", "J3", "AS0B826-S55B-7H", J3X, J3Y,
       ref_at=(5.08, -10.16), val_at=(5.08, -7.62), just="left", fp=FP["MXM"],
-      note="MXM 3.0 Type B socket (target X-Vision RX 6600 XT); S55B chosen against the bay's 9 mm ceiling, 5.5 mm overall, 2.7 mm card gap (confirm on Foxconn drawing). Pinout from ADLINK/Advantech MXM 3.1 tables")
+      note="MXM 3.0 Type B socket (target X-Vision RX 6600 XT); S55B: 5.5 mm overall, 2.7 mm card gap (confirm on Foxconn drawing); on a 1.2 mm adapter it needs the flat printed bay cover. Pinout from ADLINK/Advantech MXM 3.1 tables")
 p1 = pos("fw16:J1_FW16_ExpBay_Signal", J1X, J1Y)
 p3 = pos("fw16:J3_MXM3_Card", J3X, J3Y)
 p1n = {libpins["fw16:J1_FW16_ExpBay_Signal"][num][0]: [] for num in p1}
@@ -492,7 +492,7 @@ for num in j3_nc:
 
 # ------------------------------------------------------------ support: module detect + pull-ups
 SY = g(470)                 # below the bottom of J3's unused-pin column
-note(40, SY - 22, "EC MODULE-DETECTION + PULL-UPS (values from forum reports - UNVERIFIED, check against Framework reference design)", 1.8, True)
+note(40, SY - 22, "EC MODULE-DETECTION + PULL-UPS (330k IDs work per forum t/74018 OP; other values from MXM 3.1, the FW16 interface schematic and the community board)", 1.8, True)
 
 def vres(ref, val, x, top, bot, notes="", y=None, lib="fw16:R_V", fp=FP["R0603"]):
     pn = place(lib, ref, val, x, SY if y is None else y, note=notes, fp=fp)[0]
@@ -502,7 +502,7 @@ def vres(ref, val, x, top, bot, notes="", y=None, lib="fw16:R_V", fp=FP["R0603"]
         d = "U" if pt is top_pt else "D"
         (to_power if kind == "pwr" else to_label)(pt, d, what) if kind == "pwr" else to_label(pt, d, what, 2.54)
 
-vres("R1", "330k 1%", 60, ("lbl", "BOARD_ID0"), ("pwr", "GND"), "ID0: EC needs BOARD_VERSION_12 on both IDs (= dual interposer device), window 2040-2197 mV; 330k vs host 100k pull-up ~2.16 V if the pull-up rail is ~2.81 V (inferred from the EC's not-installed level)")
+vres("R1", "330k 1%", 60, ("lbl", "BOARD_ID0"), ("pwr", "GND"), "ID0: EC needs BOARD_VERSION_12 on both IDs (= dual interposer device), window 2040-2197 mV; 330k vs host 100k pull-up ~2.16 V if the pull-up rail is ~2.81 V (inferred from the EC's not-installed level). Forum t/74018 OP: 330k always detected; they believe the pull-up is 3.3 V, which would mean a different pull-up value. Measure on the first build")
 vres("R2", "330k 1%", 80, ("lbl", "BOARD_ID1"), ("pwr", "GND"), "ID1: see R1")
 vres("R3", "4.7k", 180, ("pwr", "+3V3"), ("lbl", "EXP_SDA"), "I2C pull-up")
 vres("R4", "4.7k", 195, ("pwr", "+3V3"), ("lbl", "EXP_SCL"), "I2C pull-up")
@@ -636,9 +636,9 @@ for i, (ref, k) in enumerate((("J4", "0"), ("J5", "1"))):
 
 # ------------------------------------------------------------ fan-control temperature sensor
 TSX, TSY = 470, SY
-note(420, TSY - 22, "FAN-CONTROL TEMP SENSOR - F75303 @0x4D on the ALW I2C bus (Framework PCIE_THERMAL_3RDPARTY descriptor). Pins per LCFC NM-D471 sheet 77.", 1.8, True)
+note(420, TSY - 22, "FAN-CONTROL TEMP SENSOR - F75303 @0x4D on the ALW I2C bus (Framework PCIE_THERMAL_3RDPARTY descriptor). Pins per FW16 7040 interface schematic p.9.", 1.8, True)
 pu4 = place("fw16:F75303", "U4", "F75303", TSX, TSY, ref_at=(-10.16, -7.62), val_at=(-10.16, -10.16), fp=FP["MSOP10"],
-            note="Fintek F75303M 10-MSOP 3x3. Pinout from LCFC NM-D471 schematic sheet 77 (US301). 0x4D (8-bit 0x9A): FW16 mainboard UTH1, the same F75303M_MSOP10, is marked 1001_101x (7040 interface schematic p.9). ALERT#/THERM# open-drain, unused here (ref design pulls them up 4.7k/10k to 3V3). Descriptor maps local=ambient, remote1=GPU VR, remote2=VRAM")[0]
+            note="Fintek F75303M 10-MSOP 3x3. Pinout and address 0x4D (8-bit 0x9A, marked 1001_101x) from the FW16 mainboard's own UTH1 F75303M_MSOP10 (7040 interface schematic p.9). ALERT#/THERM# are open-drain and unused here; pull them up only if something reads them. Descriptor maps local=ambient, remote1=GPU VR, remote2=VRAM")[0]
 u4 = {nm: pu4[n] for nm, n in F75_L + F75_R}
 to_power(u4["VDD"], "L", "+3V3"); to_power(u4["GND"], "R", "GND")
 for nm, lbl in (("D1+", "TS_D1P"), ("D1-", "TS_D1N"), ("D2+", "TS_D2P"), ("D2-", "TS_D2N")):
@@ -651,14 +651,14 @@ for i, (ref, ch, where) in enumerate((("Q1", "1", "GPU VRM / core area"), ("Q2",
                note=f"F75303 remote diode {ch}: place at the {where} of the MXM card (thermally coupled)")[0]
     to_label(pq["2"], "U", f"TS_D{ch}P", 2.54); to_label(pq["1"], "L", f"TS_D{ch}N"); to_label(pq["3"], "D", f"TS_D{ch}N", 2.54)
     vres(f"C{46 + i}", "2.2nF", 560 + i * 40, ("lbl", f"TS_D{ch}P"), ("lbl", f"TS_D{ch}N"),
-         f"Remote diode {ch} filter cap across D+/D-: 2200pF X7R as CS302/CS303 in LCFC NM-D471 sheet 77", y=TSY + 40, lib="fw16:C_V", fp=FP["C0402"])
+         f"Remote diode {ch} filter cap across D+/D-: 2200pF X7R, as on the FW16 mainboard's F75303M (7040 interface schematic p.9)", y=TSY + 40, lib="fw16:C_V", fp=FP["C0402"])
 
 # ------------------------------------------------------------ notes
 nx, ny = 10, 12
 note(nx, ny, "FW16 EXPANSION BAY -> MXM 3.x ADAPTER  |  schematic v4 DRAFT  |  generated + ERC-checked with KiCad 10 (kicad-cli)", 2.5, True)
 note(nx, ny + 6, "NOT A MANUFACTURABLE DESIGN. No PCB layout. Every value/pin/footprint marked TBD is an unresolved placeholder (see BOM CSV).", 1.5)
 note(nx, ny + 10, "J1/J2 pins: github.com/FrameworkComputer/ExpansionBay Electrical/README.md ; J3: MXM 3.1 connector tables (ADLINK MXM-AXe, Advantech SKY-MXM-RTX3000).", 1.5)
-note(nx, ny + 14, "Lanes go straight through by name: host PEX_TX -> MXM PEX_TX (MXM names are system-relative). Confirm against the MXM spec before ordering.", 1.5)
+note(nx, ny + 14, "Lanes go straight through by name: host PEX_TX -> MXM PEX_TX (MXM names are system-relative; confirmed by MXM 3.1 Table 3.6).", 1.5)
 note(nx, ny + 18, "Series parts: host->card PCIe R20-R35 = 0R; card->host PCIe C10-C25 = 220nF; DP_A lanes+AUX C26-C35 = 100nF DC blocking; HPD direct (R14 pull-down DNP).", 1.5)
 note(nx, ny + 22, "OPEN: TH_PWM unconnected. J3 = S55B on a 1.2 mm adapter; needs the flat 3D-printed bay cover (15.3 mm inside). Pins 52/53 and the F75303 address per FW16 7040 interface schematic. Checked against MXM 3.1 r1.0.", 1.5)
 
@@ -668,7 +668,7 @@ out = f"""(kicad_sch (version 20230121) (generator fw16_mxm_gen)
   (paper "A0")
   (title_block
     (title "Framework 16 Expansion Bay to MXM 3.x Adapter")
-    (date "2026-10-30")
+    (date "2026-11-08")
     (rev "v4-DRAFT")
     (comment 1 "ERC + netlist checked with KiCad 10 kicad-cli. Not validated electrically. TBD = unresolved.")
   )
