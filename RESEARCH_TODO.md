@@ -242,7 +242,10 @@ two Framework/community files in `reference/` are kept locally and not published
     0.4 mm more height under the cover, but 1.6 mm is a proven fallback.
   - Inserts are soldered on the bottom side; the interposers sit on the top side. Matches the footprint plan:
     add a bottom-side copper ring (> 4.0 mm) around each 2.7 mm interposer hole.
-  - In the photo the two interposer screw holes scale to 16.65 mm apart, matching the Framework drawing.
+  - Interposer screw holes: the user's caliper reading is 17.0 mm centre to centre; Framework's drawing
+    dimensions 16.65 mm, and the footprints use 16.65. The 0.35 mm gap is within the error of judging hole
+    centres by eye; to confirm, measure far edge to far edge and subtract one hole diameter (or near edge
+    to near edge plus one diameter). The drawing stays the reference unless that also reads ~17.0 mm.
   - Mounting holes, measured from the interposer pair (identification from the photo, to confirm):
     - D (yellow pad pair, left): 23.5 mm left of the left interposer's left edge.
     - F (right): 29.2 mm right of the right interposer's right edge.
