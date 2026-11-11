@@ -234,6 +234,26 @@ two Framework/community files in `reference/` are kept locally and not published
   - shell side wall to the first interposer screw.
 - Assembly: J3 (Foxconn AS0B826) and the Framework inserts are unlikely to be in JLCPCB's parts library;
   plan to source them separately or hand-solder.
+- Test board measured (2026-11-10). It is Framework's "EFXDP1 RISER_V04" Expansion Bay -> PCIe x16 riser
+  (`reference/card_photos/1000010416.jpg`; holes lettered in `efxdp1_riser_holes_labeled.jpg`). A bench board,
+  so its outline is not the graphics-shell outline:
+  - Board 150 mm (along the PCIe edge) x 117.5 mm, 1.68 mm thick (a 1.6 mm board). It uses the same
+    ES00000NY00 inserts, so Framework's interposer screws work on 1.6 mm too; 1.2 mm stays the plan for
+    0.4 mm more height under the cover, but 1.6 mm is a proven fallback.
+  - Inserts are soldered on the bottom side; the interposers sit on the top side. Matches the footprint plan:
+    add a bottom-side copper ring (> 4.0 mm) around each 2.7 mm interposer hole.
+  - In the photo the two interposer screw holes scale to 16.65 mm apart, matching the Framework drawing.
+  - Mounting holes, measured from the interposer pair (identification from the photo, to confirm):
+    - D (yellow pad pair, left): 23.5 mm left of the left interposer's left edge.
+    - F (right): 29.2 mm right of the right interposer's right edge.
+    - A (top edge, roughly above the right interposer): 94.8 mm above the right interposer's top edge.
+    In footprint coordinates (origin midway between the interposer screws, interposer courtyard
+    x -15.4..+15.3 mm): D at x ~ -38.9 mm, F at x ~ +44.5 mm, so D-F ~ 83.4 mm. Whether these were taken to
+    hole centres or hole edges is still to confirm.
+  - Still needed for the layout: how these relate to the graphics shell. The shell's two posts at the
+    interposer edge are 35.8 mm apart; if they are centred on the interposer pair they sit at x ~ +-17.9 mm,
+    ~2.5 mm outside each interposer. The riser's outline notches next to the interposers suggest that, but
+    it needs a measurement in the shell: each post to the edge of the interposer opening.
 
 ## Questions for Framework (no graphics module available here)
 
