@@ -317,7 +317,17 @@ two Framework/community files in `reference/` are kept locally and not published
     needs the front-left ledge and the right cover-screw boss gone and the left fan cable rerouted, and
     costs ~2.3 mm of cooler height.
   - Chosen (2026-11-10): print a replacement bottom frame (outside copied from Framework's model, inside
-    redrawn) and use S78B. Plan, inside-feature list and open checks: `FRAME_PLAN.md`.
+    redrawn).
+  - Revised (2026-11-11): keep S55B and pocket the rear wall 3.7 mm behind the socket. With S78B the
+    card's front hold-down would land on the right interposer's stiffener; clearing it needs the socket
+    ~2.2 mm further back anyway. S55B keeps 2.3 mm of cooler height and a documented card gap. The
+    mockup (`generate_frame.py`, `mechanical/`) passes a fit check against the board, socket and card.
+    Details and open checks (lid/hinge clearance behind the pocket first): `FRAME_PLAN.md`.
+  - The PCB draft follows (draft-2): board extended into the pocket (rear edge v -92.55) and forward to
+    v -0.5 at the front-left; layout numbers now in `layout.py`, shared with the frame generator.
+  - Fixed in the draft: the outline's half-circle notches (round the shell posts, the rear boss and the
+    rear pin) were drawn bulging out of the board instead of cutting into it. The CSV gives no arc
+    direction; the generator now follows the lead-in edge.
   - Card hold-down H4 (rear) was moved clear of the rear shell boss notch at (2.675, -83.65) by keeping
     the card's finger edge at u -54.3; H3/H4 now sit at (11.7, -9.25) / (11.7, -84.25).
   - Also from the model: an EMI gasket (IFGP6_GPU_EMI_GASKET, u -65..-61, v -45.7..-25.3, up to 3.9 mm)

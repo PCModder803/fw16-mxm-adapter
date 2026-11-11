@@ -23,3 +23,6 @@ reference/*.step
 
 # Windows folder metadata
 desktop.ini
+
+# Python bytecode (layout.py is imported by both generators)
+__pycache__/

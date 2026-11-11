@@ -1,135 +1,145 @@
-# Printed bottom frame: plan
+# Printed bottom frame
 
-Status: plan only (2026-11-10). Nothing here is modelled yet.
+Status (2026-11-11): a **mockup** exists. `generate_frame.py` builds it from Framework's model and writes
+`mechanical/printed_frame_mockup.step` / `.stl`; previews are in `mechanical/preview/`. It passes a fit
+check against the adapter board, the MXM socket and the card. It has not been printed or test-fitted,
+and the open checks below come first.
 
 The stock graphics-module shell is too small for an MXM Type B card plus its socket (`RESEARCH_TODO.md`
-item 7b). This plan replaces the shell's plastic bottom frame with a printed one. The outside is copied
-from Framework's model; only the inside changes.
+item 7b). The plan is to replace the shell's plastic bottom frame with a printed one. The outside is
+copied from Framework's model except one pocket at the rear, and the inside is changed.
 
-Coordinates are the ones used everywhere in this repo: u across the bay, v toward the laptop edge, the
-origin midway between the interposer screws, heights (h) above the adapter board's underside. They come
-from Framework's graphics-module STEP (FrameworkComputer/ExpansionBay, CC BY 4.0; not redistributed
-here).
+Coordinates are the ones used everywhere in this repo (`layout.py`): u across the bay, v toward the
+laptop edge, the origin midway between the interposer screws, and h above the adapter board's underside.
+They come from Framework's graphics-module STEP (FrameworkComputer/ExpansionBay, CC BY 4.0; not
+redistributed here because of its size).
 
-## What the frame is
+## Decision: keep the 5.5 mm socket and pocket the rear wall
+
+- The card has to stay behind the interposer stiffener. With the 5.5 mm socket (S55B) the card underside
+  is 2.7 mm above the board, below the stiffener's 4.45 mm, so its front edge stays behind v -5.75.
+- The socket's rear end then overruns the rear wall. The card is centred in the socket, so the socket's
+  rear ear pad reaches v -92.25 and the board edge -92.55. The rear wall's inner face is at v -89.15 and
+  its outer face (the laptop's back) at -90.75.
+- **Fix:** a 12.7 mm wide pocket in the rear wall behind the socket. It moves the outside back 3.7 mm
+  there (to v -94.45). Everything else keeps Framework's outside.
+- **Why not the 7.8 mm socket (S78B):** it would let the card sit over the stiffener and avoid the
+  pocket, but the card's front hold-down standoff would then land on the right interposer's stiffener
+  (u 1.3..21.2, v -5.25..5.25). Clearing that moves the socket back about 2.2 mm anyway, so it would
+  need a rear pocket too. S55B also keeps 2.3 mm more height for the cooler, and its 2.7 mm card gap is
+  documented, while S78B's is not.
+
+Along the left edge with S55B (socket centre v -46.75):
+
+| v | What |
+|---|---|
+| -94.45 | Pocket, outer face (stock rear face -90.75) |
+| -92.85 | Pocket, inner face |
+| -92.55 | Board rear edge |
+| -92.25 | Rear ear pad end (0.3 mm copper to edge) |
+| -87.75 .. -5.75 | Card |
+| -1.25 | Front ear pad end |
+| -0.50 | Board front edge (the stock frame's front-left ledge is gone) |
+| 0 .. 5.2 | Left fan cable path, unchanged |
+
+Across: card u -54.3..50.7 and socket housing back at u -59.0, between the inner walls at u -73.29 and
++58.64.
+
+## Frame parts
 
 Framework's model splits the shell into these parts. Only the first is replaced.
 
 | Part in the STEP | What it is | Plan |
 |---|---|---|
-| IFGP6_DIS_FRAME_BTM | Plastic bottom frame, 356.6 x 100.3 x 24.1 mm. Spans the whole width of the laptop; holds the board, the fans and the other parts | **Print a modified copy** |
-| IFGP6_DIS_FRAME_BTM_R | A second part under the frame | Reuse if it comes off the stock frame; otherwise merge into the print |
-| IFGP6_DIS_FRAME_TOP_A | Top piece over the rear strip (v -90.75..-58.3), screwed to the two cover-screw bosses | Replaced by the printed cover, which then fastens wherever the new frame puts its bosses |
-| IFGP6_MXM_BOX_AL | 1 mm aluminium floor plate under the front half of the board (v -51.6..4.3), 3.34 mm below the board | Reuse; keep its two screw points (below) |
-| IFGP6_DIS_SUPP_FRAME_L / _R | End supports at the far ends of the bay | Reuse; keep their mounting features unchanged |
-| Fans, heatsink, meshes | The 7700S cooling | Cooler is still open; keep the fan mounts so the stock fans stay usable |
+| IFGP6_DIS_FRAME_BTM | Plastic bottom frame, 356.6 x 100.3 x 24.1 mm. Spans the whole width of the laptop; holds the board, the fans and the other parts | **Printed, modified copy** |
+| IFGP6_DIS_FRAME_BTM_R | A second part under the front of the frame | Reuse |
+| IFGP6_DIS_FRAME_TOP_A | Top piece over the rear strip (v -90.75..-58.3), screwed to the two cover-screw bosses | Replaced by the printed cover, which uses the new boss positions |
+| IFGP6_MXM_BOX_AL | 1 mm aluminium floor plate under the front half of the board (v -51.6..4.3) | Reuse; its screw points are unchanged |
+| IFGP6_DIS_SUPP_FRAME_L / _R | End supports at the far ends of the bay | Reuse; unchanged |
+| Fans, heatsink, meshes | The 7700S cooling | Cooler still open; the fan mounts are unchanged |
 
-## The socket height has to change too
+## What the mockup changes (generate_frame.py)
 
-The printed frame alone is not enough with the 5.5 mm socket (S55B). With S55B the card underside is
-2.7 mm above the board, below the interposer stiffener (4.45 mm), so the card's front edge must stay
-behind v -5.75. The card is centred in the socket, so the socket's rear end then lands at v -90.75 (body)
-and its rear ear pad at v -92.25. The frame's rear wall is only 1.3-1.6 mm thick: inner face v -89.15,
-outer face v -90.75, which is also the laptop's rear surface. A copied outside cannot make that room
-without a bulge at the rear left corner.
+1. **Rear pocket** behind the socket:
+   - The rear wall is opened from the floor (h -2.7) to h 8.0 over u -60.0..-47.3.
+   - A box is added behind it with its own floor, side walls and roof, all 1.6 mm thick.
+   - The pocket's inside is 3.7 mm deep and 8.0 mm high above the board's underside; the socket top is
+     at h 6.7.
+2. **Cover-screw bosses** (`layout.COVER_BOSSES`):
+   - The stock ones at (-61.8, -65.6) and (50.0, -65.6) are removed down to the floor. The right one sat
+     under the card; the left one was 0.1 mm from the board edge.
+   - New dia 6.0 bosses go at (-66.0, -65.6) and (55.0, -65.6), up to h 5.0 like the stock ledge, each
+     with a dia 3.2 x 4 mm hole for an M2 heat-set insert.
+3. **Rear-wall ribs** at h ~8.2-10.1 are trimmed back to 0.25 mm behind the card's rear edge.
+4. **Two frame pins** at (32.5, 3.7) and (-35.9, 3.7) are removed. In Framework's own model they run
+   through its board, so the real board must have holes the model leaves out. The adapter is located by
+   the interposer screws and the shell posts instead.
+5. **A small lip** at the front-left (u -54..-52, v -1.0..-0.4) is cut. The socket's front ear pad lands
+   there.
+6. **The locating pin in the rear notch** at (17.4, -86.0) is cut flush with the board top. It stood
+   0.46 mm above the board, under the card.
 
-Foxconn's drawing (AS series, one sheet for all heights) gives the lengths along the socket:
-- pegs 82.00 apart; the card is centred between them;
-- ear pads 3.00 x 5.15, centred 3.00 past each peg, so copper spans 91.0 mm;
-- socket body 88.9 mm overall.
+Kept as is:
+- the interposer insert pockets;
+- the shell posts at (-20.8, 2.9) and (20.2, 2.9), which pass through the board's notches;
+- the board supports and fixings under the board;
+- everything outside the inner walls.
 
-With the 7.8 mm socket (S78B) the card underside should be about 5.0 mm up (unconfirmed, see step 1),
-clear of the stiffener (4.45 mm). The card can then sit over the stiffener, and everything fits along
-the left edge:
+The board support pin at (-56.0, -72.2) is now under the socket; it is below the board, so it stays
+unless the adapter puts bottom-side parts there.
 
-| v | What |
-|---|---|
-| -89.15 | Rear wall, inner face (unchanged) |
-| -88.85 | Board rear edge (0.3 mm from the wall) |
-| -88.55 | Rear ear pad end (0.3 mm copper to edge) |
-| -43.05 | Socket centre |
-| -84.05 .. -2.05 | Card |
-| -0.80 | Spring-screw tip edge (5.16 mm high; the card stays 1.25 mm behind it) |
-| +2.45 | Front ear pad end |
-| 0 .. 5.2 | Stock left fan cable path (u < -46.1): has to move, see below |
+Fit check, run by the script (`generate_frame.py` exits non-zero if any fail):
 
-Margins: 0.55 mm between the card's underside and the stiffener top, if the 5.0 mm gap holds; 1.25 mm to
-the spring screws. The cost is about 2.3 mm less height above the card for the cooler.
+| Item | Stock frame | Mockup |
+|---|---|---|
+| Adapter board | rear wall, 2 pins, front lip | clear |
+| MXM socket body (S55B) | rear wall | clear |
+| MXM socket ear pads | rear wall | clear |
+| Card and the space above it (to h 16.5) | right boss, rear ribs, rear pin | clear |
 
-Across, the inner walls are 131.9 mm apart (u -73.29..58.64). Card (u -54.3..50.7) plus socket housing
-(back at u -59.0) fit once the cover-screw bosses move (below).
+## Open checks before printing
 
-## Inside features (from the STEP)
-
-Features at board level and under the board. A feature is kept where its position is fixed by the
-laptop, and moved or removed where it only served the stock 7700S board or blocks the card.
-
-**Keep unchanged (laptop interface)**
-- Interposer insert pockets at (-8.3, 0) and (8.3, 0), dia 5.6/6.8.
-- Shell posts through the board notches at (-20.8, 2.9) and (20.2, 2.9), dia 3.2 hole in a dia 5.2 post.
-  The adapter board copies the stock notches (r 3.0).
-- Everything outside the inner walls: the outer skin, the rear face and its openings, the end-support
-  mounts, the fan mounts.
-- Aluminium floor plate screw points at (-77.5, -47.9) and (62.8, -47.9).
-
-**Remove or move (stock 7700S board / blocks the card)**
-- Cover-screw bosses at (-61.8, -65.6) and (50.0, -65.6) (ledge with an M2 nut, 1.4-5.0 mm high): the
-  right one sits under the card's end (card to u 50.7). Move both outboard, about u -66 and +55. The
-  printed cover uses the new positions.
-- Front-left ledge at board level (u -62..-51, v > -3.3): remove. The socket's front end sits there.
-- Board support pin at (-56.0, -72.2) (dia 1.8/3.0, under the board): under the socket; remove.
-- Board support pin at (45.1, -72.2): under the card area but below the board; keep only if the adapter
-  board has no bottom-side parts there.
-- Support post at (-40.8, 2.9) (dia 3.2/5.2, under the board): keep as a board support if it lands clear
-  of the adapter's bottom-side parts.
-- Stock board fixings: screw boss at (44.7, -6.1), rear boss at (2.7, -83.6) (in a 2.8 mm board notch)
-  and rear insert pocket at (-17.3, -83.6). The adapter can keep using them (the draft does), or the
-  frame can put new ones where the layout wants them.
-- Rear-wall ribs at h ~9.75 near v -87.3 (u around -38, -28, 10, 27): above the board; check them
-  against the card and cooler once the cooler is chosen.
-
-**Add**
-- Card hold-down standoffs: the card screws to the adapter board at the two Foxconn hold-down points
-  (66 mm from the socket's peg line, +-37.5 mm). If the frame should take the load instead, add M2
-  bosses under those two points.
-- Left fan cable path: the socket's front end blocks the stock path (v 0..5, u < -46.1). Move the fan
-  connector J4 outboard of the socket (board extended to about u -66 at the front left), so the cable
-  never crosses the socket. Check the cable's reach on the real fan.
-- Ribs to stiffen the frame where the moulded original relies on thin walls (inside only).
+1. **The laptop behind the pocket.** The pocket stands 3.7 mm proud of the rear face at the rear left,
+   over the board's height band (h -4.2..10.6).
+   - Check that the lid and hinge clear it at every opening angle.
+   - Check that the module still slides in and out of the bay.
+   - Measure on the laptop before printing.
+2. **The height budget.** Check the card, GPU and cooler against the bay's top limit (Framework's
+   ExpansionBay drawings) and the printed cover.
+3. **Printability.**
+   - The copied walls come from an injection-moulded part, so many are only 1-1.6 mm thick.
+   - Thicken or rib them for printing where the outside allows.
+   - Check overhangs for the chosen print orientation.
+4. **Outside fit.** Print test pieces first:
+   - the interposer region, with the two posts and insert pockets, to check alignment in the laptop;
+   - the rear-left corner with the pocket.
 
 ## Printing
 
-- Size: one piece is 356.6 x 100.3 x 24.1 mm.
+- Size: one piece is 356.6 x 100.3 x 24.1 mm (the pocket adds 3.7 mm at the rear left).
   - Desktop printers (256 mm or 250 x 210 mm beds) need it split. Both halves stay under 250 mm for a
-    joint anywhere in u -79.3..64.7. Keeping it clear of the card and the interposers leaves
-    u -79.3..-59.4 or u 51..64.7, through a side-wall region. Use a lap joint with screws or adhesive.
-  - A large-format printer (360 mm class) or a print service can do it in one piece. JLCPCB's 3D-printing
-    service (MJF nylon or SLA resin) is the simplest, since the PCB is going there anyway. Check its
-    current maximum part size before ordering.
+    joint anywhere in u -79.3..64.7.
+  - Keeping the joint clear of the card and the interposers leaves u -79.3..-59.4 or u 51..64.7,
+    through a side-wall region. Use a lap joint with screws or adhesive.
+  - A large-format printer (360 mm class) or a print service can do it in one piece. JLCPCB's
+    3D-printing service (MJF nylon or SLA resin) is the simplest, since the PCB is going there anyway.
+    Check its current maximum part size before ordering.
 - Material: not PLA (softens at ~55-60 C, too close to a GPU). PETG, ASA, nylon (PA12 MJF) or PA-CF.
-- Fit first: print test coupons before the whole frame:
-  - the interposer region with the two posts and insert pockets, to check alignment in the laptop;
-  - the rear left corner, to check the socket and board clearance to the rear wall.
 
-## Steps
+## Rebuilding
 
-1. **Confirm the S78B card gap.** The Foxconn sheet gives the three socket heights (4.3/5.5/7.8) but not
-   each one's card gap. Sources: Foxconn's per-height drawing, a 3D model of the S78B, or measuring a
-   socket. It needs to be at least ~4.95 mm (stiffener 4.45 + 0.5).
-2. **Check the card's underside** along its long edge nearest the laptop (middle ~45 mm, first ~3.5 mm
-   from the edge): that strip sits over the stiffener with ~0.55 mm to spare, so any part there must be
-   flatter than that. Photo or measurement of the X-Vision card.
-3. **Confirm the height budget**: card top at about h 7.4 (board 1.2 + gap 5.0 + card 1.2), plus the
-   GPU and the cooler, against the bay's top limit (Framework's ExpansionBay drawings) and the printed
-   cover.
-4. **Extract the frame** from Framework's STEP as its own solid (FreeCAD can open the assembly and
-   export one body), then make the inside edits above.
-5. **Update the PCB draft** to the printed-frame layout: S78B in `generate_pcb.py`, socket centre
-   v -43.05, rear board edge -88.85, J4 outboard, keep-outs from the new frame. Same footprint (the pads
-   are identical across heights).
-6. **Test coupons**, then the full frame.
+```
+python -m venv cadenv
+cadenv/Scripts/python -m pip install cadquery-ocp
+cadenv/Scripts/python generate_frame.py
+```
+
+It needs Framework's `FW_GRAPHICS_MODULE_REF_00-1.stp` in `reference/`. The adapter's outline and
+positions come from `layout.py`, the same module `generate_pcb.py` uses, so the frame follows any layout
+change.
 
 ## Licensing
 
-Framework's model is CC BY 4.0, which allows derived parts. A printed frame published here must credit
-Framework and say it was modified. The rest of the repo stays CERN-OHL-S v2.
+The frame is a modified version of Framework Computer's part from FrameworkComputer/ExpansionBay and
+is licensed CC BY 4.0, like the original: credit Framework Computer and note the changes. The rest of
+the repo stays CERN-OHL-S v2.

@@ -6,16 +6,17 @@ Run with KiCad's Python (it needs the pcbnew module):
 
 What it does:
   - board outline from reference/fw_7700s_board_outline.csv (Framework's RX 7700S module board, read from
-    FW_GRAPHICS_MODULE_REF_00-1.stp), extended on the left and rear for the MXM socket;
+    FW_GRAPHICS_MODULE_REF_00-1.stp), extended on the left, rear and front-left for the MXM socket;
   - J1/J2 (interposers), J3 (MXM socket), J4/J5 (fan FPC connectors) and the mounting features placed;
   - every other part from the schematic netlist placed in a staging grid beside the board, with nets,
     so the ratsnest shows;
-  - reference drawings on User layers: MXM card outline, interposer-stiffener keep-out, shell walls.
+  - reference drawings on User layers: MXM card outline, interposer-stiffener keep-out, and the walls and
+    keep-outs of the printed bottom frame (FRAME_PLAN.md, generate_frame.py).
 No tracks. Coordinates: u across the bay, v toward the laptop edge, origin midway between the two
 interposer screws (RESEARCH_TODO item 7b). KiCad X = X0 + u, Y = Y0 + v (top view, laptop edge at the
 bottom of the screen).
 """
-import csv, math, os, subprocess, sys, tempfile
+import json, math, os, subprocess, sys, tempfile
 import xml.etree.ElementTree as ET
 import pcbnew
 
@@ -29,80 +30,26 @@ mm = pcbnew.FromMM
 
 def P(u, v): return pcbnew.VECTOR2I(mm(X0 + u), mm(Y0 + v))
 
-# ------------------------------------------------------------------ placement decisions (all in u, v)
-BOARD_THICKNESS = 1.2          # Framework's board and inserts (RESEARCH_TODO item 6)
-COPPER_LAYERS = 6              # placeholder until a JLCPCB impedance stackup is chosen
-# Stiffener over the interposers, module side: u -21.2..21.2, v -5.25..0.3, 4.45 mm above the board top.
-STIFFENER = (-21.2, -5.25, 21.2, 0.3)
-CARD_GAP = 2.7                 # S55B, PCB to card underside
-# MXM card 105 x 82: front edge kept behind the stiffener with 0.5 mm clearance.
-CARD_V_FRONT = STIFFENER[1] - 0.5
-# J3's housing reaches 4.7 mm behind the card's finger edge (Foxconn side view: 8.90 deep, 4.20 on the
-# card side of the pegs). The left cover-screw boss reaches u -59.43, so the finger edge goes at -54.3
-# (housing back at -59.0). The card then ends at u 50.7, past the right boss (from u 47.62): a known
-# conflict, drawn below.
-CARD_U_LEFT = -54.3
-CARD = (CARD_U_LEFT, CARD_V_FRONT - 82.0, CARD_U_LEFT + 105.0, CARD_V_FRONT)
-# J3: socket axis along v. Foxconn's drawing: the card is centred between the pegs (82 mm apart), the
-# ear pads are centred 3 mm past each peg (copper 91.0 mm overall, body 88.9 mm), and the card
-# hold-downs sit 66 mm toward the card.
-# The card's finger edge is taken on the peg line (consistent with the 66 mm hold-downs; check against
-# the MXM 3.1 mechanical drawing). Footprint +y points toward the card.
-J3_U, J3_V = CARD_U_LEFT, (CARD[1] + CARD[3]) / 2
-# Fan connectors near where the 7700S board has them (model SP010036Q00_AFC58 at v 1.45), moved 1 mm
-# back so the nail pads clear the board edge; orientation not yet checked against the model.
-J4_UV, J5_UV = (-46.3, 0.45), (37.22, 0.45)
-# Mounting features from the 7700S board: screw into a shell boss; rear insert (same ES00000NY00).
-MOUNT_SCREW = (44.675, -6.15)
-REAR_INSERT = (-17.325, -83.65)
-# Shell inner walls at board level (model): sides u -73.29 / +58.64, rear v -89.15.
-WALLS = (-73.29, -89.15, 58.64, 5.2)
-# Shell features in the card/socket height band (Framework model, vertex extents, RESEARCH_TODO 7b):
-KEEPOUTS = [
-    ((-73.29, -70.0, -59.43, -60.0), "LEFT COVER-SCREW BOSS: ledge 1.4-5.0 mm, screw to 7.0 mm"),
-    ((47.62, -70.0, 58.64, -60.0), "RIGHT COVER-SCREW BOSS: ledge 1.4-5.0 mm, screw to 7.0 mm"),
-    ((-62.0, -3.3, -51.0, 0.0), "FRAME LEDGE AT BOARD LEVEL (why the stock board is notched here)"),
-    ((-73.29, 0.0, -46.08, 5.2), "FAN FPC / CABLE"),
-    ((36.03, 0.0, 58.64, 5.2), "FAN FPC / CABLE"),
-]
-
-# ------------------------------------------------------------------ outline
-def outline_edges():
-    rows = []
-    with open(os.path.join(HERE, "reference", "fw_7700s_board_outline.csv")) as fh:
-        for r in csv.reader(l for l in fh if not l.startswith("#")):
-            rows.append(r)
-    # Replace the stock left side (from the rear edge at u -13.125 round to (-51.025, -2.25)) with an
-    # extension that takes the MXM socket: out to u -59.3 (just inside the left boss) and back to v -88.65
-    # (0.5 mm inside the rear wall).
-    i0 = next(i for i, r in enumerate(rows) if r[0] == "line" and float(r[1]) == -13.125 and float(r[2]) == -87.25)
-    i1 = next(i for i, r in enumerate(rows) if r[0] == "arc" and float(r[3]) == -51.025 and float(r[4]) == -2.25)
-    ext = [["line", -13.125, -87.25, -48.0, -87.25], ["line", -48.0, -87.25, -48.0, -88.65],
-           ["line", -48.0, -88.65, -58.3, -88.65], ["arc", -58.3, -88.65, -59.3, -87.65, -58.3, -87.65, 1.0],
-           ["line", -59.3, -87.65, -59.3, -3.25], ["arc", -59.3, -3.25, -58.3, -2.25, -58.3, -3.25, 1.0],
-           ["line", -58.3, -2.25, -51.025, -2.25]]
-    return rows[:i0] + ext + rows[i1 + 1:]
+from layout import *              # placement decisions and the board outline (shared with generate_frame.py)
 
 def add_outline(board):
-    for r in outline_edges():
+    for sh in outline_shapes():
         s = pcbnew.PCB_SHAPE(board)
         s.SetLayer(pcbnew.Edge_Cuts); s.SetWidth(mm(0.1))
-        a = (float(r[1]), float(r[2])); b = (float(r[3]), float(r[4]))
-        if r[0] == "line":
-            s.SetShape(pcbnew.SHAPE_T_SEGMENT); s.SetStart(P(*a)); s.SetEnd(P(*b))
+        if sh[0] == "line":
+            s.SetShape(pcbnew.SHAPE_T_SEGMENT); s.SetStart(P(*sh[1])); s.SetEnd(P(*sh[2]))
         else:
-            c = (float(r[5]), float(r[6]))
-            # midpoint of the short arc between a and b
-            a0 = math.atan2(a[1] - c[1], a[0] - c[0]); a1 = math.atan2(b[1] - c[1], b[0] - c[0])
-            d = (a1 - a0 + math.pi) % (2 * math.pi) - math.pi
-            rad = math.hypot(a[0] - c[0], a[1] - c[1])
-            m = (c[0] + rad * math.cos(a0 + d / 2), c[1] + rad * math.sin(a0 + d / 2))
-            s.SetShape(pcbnew.SHAPE_T_ARC); s.SetArcGeometry(P(*a), P(*m), P(*b))
+            s.SetShape(pcbnew.SHAPE_T_ARC); s.SetArcGeometry(P(*sh[1]), P(*sh[2]), P(*sh[3]))
         board.Add(s)
 
 def rect(board, layer, box, width=0.15):
     u0, v0, u1, v1 = box
     for a, b in (((u0, v0), (u1, v0)), ((u1, v0), (u1, v1)), ((u1, v1), (u0, v1)), ((u0, v1), (u0, v0))):
+        s = pcbnew.PCB_SHAPE(board); s.SetShape(pcbnew.SHAPE_T_SEGMENT); s.SetLayer(layer)
+        s.SetWidth(mm(width)); s.SetStart(P(*a)); s.SetEnd(P(*b)); board.Add(s)
+
+def poly(board, layer, pts, width=0.15):
+    for a, b in zip(pts, pts[1:]):
         s = pcbnew.PCB_SHAPE(board); s.SetShape(pcbnew.SHAPE_T_SEGMENT); s.SetLayer(layer)
         s.SetWidth(mm(width)); s.SetStart(P(*a)); s.SetEnd(P(*b)); board.Add(s)
 
@@ -137,10 +84,11 @@ def main():
     board = pcbnew.BOARD()
     ds = board.GetDesignSettings()
     ds.SetBoardThickness(mm(BOARD_THICKNESS))
+    ds.m_CopperEdgeClearance = mm(0.3)       # JLCPCB's minimum for a routed edge; J3's rear ear pad uses it
     board.SetCopperLayerCount(COPPER_LAYERS)
     tb = board.GetTitleBlock()
     tb.SetTitle("FW16 Expansion Bay to MXM adapter - mechanical placement draft")
-    tb.SetRevision("draft-1"); tb.SetDate("2026-11-10")
+    tb.SetRevision("draft-2"); tb.SetDate("2026-11-11")
     tb.SetComment(0, "NOT FOR FAB: placement and fit study only, no routing")
     tb.SetComment(1, "Outline from Framework's RX 7700S module board (FW_GRAPHICS_MODULE_REF_00-1.stp, CC BY 4.0)")
     tb.SetComment(2, "Generated by generate_pcb.py - edit the script, not this file")
@@ -200,16 +148,26 @@ def main():
     text(board, U1, CARD[0] + 2, CARD[1] + 4, f"MXM CARD 105 x 82 (underside {CARD_GAP} mm above board, S55B)")
     rect(board, U1, STIFFENER, 0.2)
     text(board, U1, STIFFENER[0], STIFFENER[1] - 1.5, "INTERPOSER STIFFENER: 4.45 mm above board top - card must not overlap", 1.0)
-    rect(board, U2, WALLS, 0.3)
-    text(board, U2, WALLS[0] + 1, WALLS[1] + 2.5, "SHELL INNER WALLS AT BOARD LEVEL (Framework model)", 1.0)
+    poly(board, U2, WALLS, 0.3)
+    text(board, U2, -72.3, -86.65, "PRINTED FRAME INNER WALLS AT BOARD LEVEL (Framework model + rear pocket)", 1.0)
+    for u, v in COVER_BOSSES:
+        c = pcbnew.PCB_SHAPE(board); c.SetShape(pcbnew.SHAPE_T_CIRCLE); c.SetLayer(U2); c.SetWidth(mm(0.3))
+        c.SetCenter(P(u, v)); c.SetEnd(P(u + 3.0, v)); board.Add(c)
+        text(board, U2, u - 3.0, v - 4.0, "COVER BOSS (frame) to 5.0 mm", 0.8)
     for box, label in KEEPOUTS:
         rect(board, U2, box, 0.3)
         text(board, U2, box[0] + 0.5, box[1] - 1.0, label, 0.8)
     text(board, CM, -66, -95, "MECHANICAL PLACEMENT DRAFT - NOT FOR FAB. Parts right of the board are unplaced (staging).", 1.5)
-    text(board, CM, -66, -98, "Open issues (RESEARCH_TODO item 7b): with S55B the card is pinned behind the stiffener, so J3 overruns the rear wall;", 1.5)
-    text(board, CM, -66, -101, "card + socket need ~109.7 mm across but the cover-screw bosses leave 107.05 mm. Plan: printed frame + S78B (FRAME_PLAN.md).", 1.5)
+    text(board, CM, -66, -99, "Laid out for the printed bottom frame (FRAME_PLAN.md): J3's rear end sits in a 3.7 mm pocket in the rear wall.", 1.5)
+    text(board, CM, -66, -102, "Not checked yet: J4/J5 orientation, interposer footprint details, the lid's clearance to the rear pocket.", 1.5)
 
     board.Save(OUT)
+    # KiCad takes board rules from the project file, so record the edge clearance there too.
+    pro = os.path.splitext(OUT)[0] + ".kicad_pro"
+    cfg = json.load(open(pro, encoding="utf-8")) if os.path.exists(pro) else {"meta": {"version": 1}}
+    cfg.setdefault("board", {}).setdefault("design_settings", {}).setdefault("rules", {})["min_copper_edge_clearance"] = 0.3
+    with open(pro, "w", encoding="utf-8", newline="\n") as fh:
+        json.dump(cfg, fh, indent=2); fh.write("\n")
     print("wrote", OUT, "footprints:", len(board.GetFootprints()))
 
 if __name__ == "__main__":

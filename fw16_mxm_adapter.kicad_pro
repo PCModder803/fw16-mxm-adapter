@@ -1,1 +1,13 @@
-{"meta":{"filename":"fw16_mxm_adapter.kicad_pro","version":1}}
+{
+  "meta": {
+    "filename": "fw16_mxm_adapter.kicad_pro",
+    "version": 1
+  },
+  "board": {
+    "design_settings": {
+      "rules": {
+        "min_copper_edge_clearance": 0.3
+      }
+    }
+  }
+}
