@@ -50,8 +50,10 @@ The community board this started from is on the Framework forum (t/74018).
     pad bug. Both footprints keep the original origin, so **J1 and J2 must be placed at the same XY**.
     The pad geometry is unverified against the FXBeam drawing.
   - `MXM3_AS0B826-S55B-7H`: the merged power pads are split so every MXM pin has a pad.
-    S55B is chosen: 5.5 mm overall with a 2.7 mm gap under the card (Critical Link wiki; confirm on the
-    Foxconn drawing). The adapter PCB is 1.2 mm, matching Framework's reference board and its M2 inserts.
+    S55B is chosen: 5.5 mm overall with a 2.7 mm gap under the card (Critical Link wiki; Foxconn's sheet
+    gives only the overall height). The adapter PCB is 1.2 mm, matching Framework's reference board and its
+    M2 inserts. Checked against Foxconn's AS-series datasheet: all pad positions match; pegs set to its
+    1.10 / 1.60 mm; courtyard added.
   - The 2.7 mm interposer screw holes are 16.65 mm apart, matching Framework's FW_EXPANSION_BAY_PCB_0807
     drawing (`reference/framework_pcb_ref/`). They still need a solder ring for the ES00000NY00 insert.
 - Every symbol pin has a matching footprint pad (checked from the netlist); all 88 parts have footprints.
@@ -114,8 +116,9 @@ R20-R35 stay 0R and the adapter's C10-C25 couple the card's TX.
   Everything else sits unplaced beside the board, with nets, so the ratsnest shows. No tracks.
 - User layers: the MXM card outline, the interposer stiffener keep-out (4.45 mm tall; the card must not
   overlap it) and the shell's inner walls.
-- Known conflict: with S55B, the socket's rear end runs ~2 mm past the board edge and ~1.6 mm past the
-  shell's rear wall. Options are in `RESEARCH_TODO.md` item 7b.
+- Known conflicts with the stock shell: the socket needs 88 mm along the left edge where ~85.4 mm is free,
+  and card plus socket need ~109.7 mm across where the shell's cover-screw bosses leave 107.05 mm. Both are
+  drawn on the User layers; options are in `RESEARCH_TODO.md` item 7b.
 
 ## Still to do
 `RESEARCH_TODO.md` lists everything that needs a document, a measurement or a laptop. After that: write

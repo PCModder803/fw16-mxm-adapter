@@ -278,9 +278,8 @@ two Framework/community files in `reference/` are kept locally and not published
     the 105.4 mm board width (the socket body extends past the card edge; needs the Foxconn drawing) and
     whether the outline can grow into the space toward the fans.
 - Placement draft (2026-11-10, `generate_pcb.py` -> `fw16_mxm_adapter.kicad_pcb`). Findings from the model:
-  - Width is not the limit. The shell's inner side walls at board level are at u -73.29 and +58.64
-    (131.9 mm apart; the fans sit outside them). The board can grow ~15 mm left and ~11 mm right. This
-    disagrees with the 107 mm measured "fan to fan" earlier: re-measure wall to wall at board height.
+  - The shell's inner side walls at board level are at u -73.29 and +58.64 (131.9 mm apart; the fans sit
+    outside them), but two cover-screw bosses narrow the card's height band to 107.05 mm (below).
   - Depth is the limit. The interposer stiffener (74P_STIFFENER-C_P, both sides) covers u -21.2..+21.2,
     v -5.25..+0.3 and rises 4.45 mm above the board top; the spring screws reach 5.16 mm. With S55B the
     card underside is 2.7 mm up, so the card's front edge must stay behind v -5.25. The shell's rear wall
@@ -288,19 +287,43 @@ two Framework/community files in `reference/` are kept locally and not published
   - The socket is ~88 mm long over its end tabs (footprint pads to +-44 mm) against the card's 82 mm.
     With the card centred in the socket and its front edge at v -5.75, the socket spans v -90.75..-2.75:
     its rear end overruns the rear wall by ~1.6 mm. The draft shows this.
-  - Assumed, to check on the Foxconn AS0B826 drawing: the card is centred on the socket, the finger edge
-    lies on the socket centreline, and the end-tab pads are where the community footprint has them. These
-    could move the result by a millimetre or two either way.
-  - Options: (1) S78B (7.8 mm): the card then clears the stiffener (needs its card gap > 4.45 mm, and the
-    card front edge behind the spring screws at v ~-1), so everything fits; costs ~2.3 mm of cooler height.
-    (2) Keep S55B and relieve the shell's rear wall locally (u -67..-57) by ~2 mm. (3) A shorter socket,
-    if one exists. Get the Foxconn drawing first; it decides between these.
+  - Foxconn AS-series datasheet (2026-11-10; `reference/framework_pcb_ref/foxconn/AS0B826-S78B-7H.pdf`,
+    from embeddedartists.com, local only; one sheet for the 4.3/5.5/7.8 mm heights). Recommended layout:
+    pegs 82.00 apart (dia 1.10 at the E-pin end, 1.60 at the pin-281 end); ear tabs 3.00 x 5.15 reaching
+    3.00 past each peg (88 mm overall); housing 84.6 long and 8.90 deep (4.20 on one side of the pegs);
+    card hold-down keepouts dia 6.8 at +-37.5 mm, 66.00 mm from the peg line toward the card. All 280 pad
+    positions in our footprint match (the power pins are merged into wide pads, centred correctly). The
+    card is centred between the pegs. The sheet does not give each height's card gap.
+  - Footprint updated to match: peg holes 1.10/1.60 (were 1.2/1.7), courtyard added, mask bridges allowed
+    between the 0.5 mm staggered pads, 0.15 mm local clearance on the E1-E4 / merged 5 V pads (Foxconn's
+    own spacing is 0.18-0.19 mm). Card hold-downs H3/H4 added to the draft.
+  - The cover-screw bosses settle the "107 mm": the shell has an M2 nut on a ledge at each side,
+    v ~-65.6, centres u ~-61.8 and ~+50.0. Their inner limits are u -59.43 and +47.62 (107.05 mm apart),
+    between 1.4 and 5.0 mm above the board's underside, with the screws reaching 7.0 mm. That is the
+    107 mm measured.
+  - Result with the stock shell, S55B:
+    - Across: card (105) plus the housing behind the finger edge (~4.7) needs ~109.7 mm; the bosses leave
+      107.05. With the housing just clear of the left boss, the card ends at u 50.7, 3 mm past the right
+      boss, in the boss's height band.
+    - Along: the socket's 88 mm (ear to ear) has only ~85.4 mm free on the left edge, between the rear wall
+      (v -89.15) and a frame ledge at board level at the front-left (u -62..-51, v > -3.3; the reason the
+      stock board has a notch there).
+  - So the stock shell needs modifying. The bottom frame is plastic. Ways out:
+    (1) Cut down the right cover-screw boss (ledge, nut, screw) and fasten the printed cover elsewhere, and
+        either pocket the rear wall ~2-3 mm behind the socket or trim the front-left ledge.
+    (2) S78B: if its card gap is ~5.0 mm (7.8 - 2.8, as for S55B; unconfirmed), the card clears the
+        ledges (<= 5.0 mm) and the interposer stiffener (4.45 mm), so it can sit further toward the
+        laptop. The socket body still needs 88 mm along the left edge, the right boss's screw (7.0 mm)
+        still meets the card, and it costs ~2.3 mm of cooler height.
+    (3) Print a replacement bottom frame as well as the cover (most work, most freedom).
+  - Card hold-down H4 (rear) was moved clear of the rear shell boss notch at (2.675, -83.65) by keeping
+    the card's finger edge at u -54.3; H3/H4 now sit at (11.7, -9.25) / (11.7, -84.25).
   - Also from the model: an EMI gasket (IFGP6_GPU_EMI_GASKET, u -65..-61, v -45.7..-25.3, up to 3.9 mm)
     sits in the left extension area on the stock module; it belongs to the stock board's EMI and would be
     left out. J4/J5 orientation is not yet checked against the model.
-  - Footprint issues DRC shows: J3 has no courtyard, its E3/E4 pads are too close to their neighbours,
-    and its 0.5 mm stagger gives solder-mask bridges; J1/J2 each carry both interposers' courtyards and
-    holes (expected while they share one position). All to fix against the drawings before routing.
+  - DRC after the footprint update: J1/J2 each carry both interposers' courtyards and holes (expected
+    while they share one position); J5's nail pad is close to the front-right edge arc; U4's stock MSOP-10
+    flags clearance in the staging area. No J3 errors remain apart from it overrunning the outline.
 
 ## Questions for Framework (no graphics module available here)
 

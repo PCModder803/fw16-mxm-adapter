@@ -37,10 +37,16 @@ STIFFENER = (-21.2, -5.25, 21.2, 0.3)
 CARD_GAP = 2.7                 # S55B, PCB to card underside
 # MXM card 105 x 82: front edge kept behind the stiffener with 0.5 mm clearance.
 CARD_V_FRONT = STIFFENER[1] - 0.5
-CARD_U_LEFT = -62.0
+# J3's housing reaches 4.7 mm behind the card's finger edge (Foxconn side view: 8.90 deep, 4.20 on the
+# card side of the pegs). The left cover-screw boss reaches u -59.43, so the finger edge goes at -54.3
+# (housing back at -59.0). The card then ends at u 50.7, past the right boss (from u 47.62): a known
+# conflict, drawn below.
+CARD_U_LEFT = -54.3
 CARD = (CARD_U_LEFT, CARD_V_FRONT - 82.0, CARD_U_LEFT + 105.0, CARD_V_FRONT)
-# J3: socket axis along v, card centred on it; card finger edge assumed on the socket centreline
-# (approximate until the Foxconn drawing is checked). Footprint +y points toward the card.
+# J3: socket axis along v. Foxconn's drawing: the card is centred between the pegs (82 mm apart), the
+# ear tabs reach 3 mm past each peg (88 mm overall), and the card hold-downs sit 66 mm toward the card.
+# The card's finger edge is taken on the peg line (consistent with the 66 mm hold-downs; check against
+# the MXM 3.1 mechanical drawing). Footprint +y points toward the card.
 J3_U, J3_V = CARD_U_LEFT, (CARD[1] + CARD[3]) / 2
 # Fan connectors near where the 7700S board has them (model SP010036Q00_AFC58 at v 1.45), moved 1 mm
 # back so the nail pads clear the board edge; orientation not yet checked against the model.
@@ -50,6 +56,14 @@ MOUNT_SCREW = (44.675, -6.15)
 REAR_INSERT = (-17.325, -83.65)
 # Shell inner walls at board level (model): sides u -73.29 / +58.64, rear v -89.15.
 WALLS = (-73.29, -89.15, 58.64, 5.2)
+# Shell features in the card/socket height band (Framework model, vertex extents, RESEARCH_TODO 7b):
+KEEPOUTS = [
+    ((-73.29, -70.0, -59.43, -60.0), "LEFT COVER-SCREW BOSS: ledge 1.4-5.0 mm, screw to 7.0 mm"),
+    ((47.62, -70.0, 58.64, -60.0), "RIGHT COVER-SCREW BOSS: ledge 1.4-5.0 mm, screw to 7.0 mm"),
+    ((-62.0, -3.3, -51.0, 0.0), "FRAME LEDGE AT BOARD LEVEL (why the stock board is notched here)"),
+    ((-73.29, 0.0, -46.08, 5.2), "FAN FPC / CABLE"),
+    ((36.03, 0.0, 58.64, 5.2), "FAN FPC / CABLE"),
+]
 
 # ------------------------------------------------------------------ outline
 def outline_edges():
@@ -58,13 +72,14 @@ def outline_edges():
         for r in csv.reader(l for l in fh if not l.startswith("#")):
             rows.append(r)
     # Replace the stock left side (from the rear edge at u -13.125 round to (-51.025, -2.25)) with an
-    # extension that takes the MXM socket: out to u -67.5 and back to v -88.65 (0.5 mm inside the wall).
+    # extension that takes the MXM socket: out to u -59.3 (just inside the left boss) and back to v -88.65
+    # (0.5 mm inside the rear wall).
     i0 = next(i for i, r in enumerate(rows) if r[0] == "line" and float(r[1]) == -13.125 and float(r[2]) == -87.25)
     i1 = next(i for i, r in enumerate(rows) if r[0] == "arc" and float(r[3]) == -51.025 and float(r[4]) == -2.25)
     ext = [["line", -13.125, -87.25, -48.0, -87.25], ["line", -48.0, -87.25, -48.0, -88.65],
-           ["line", -48.0, -88.65, -66.5, -88.65], ["arc", -66.5, -88.65, -67.5, -87.65, -66.5, -87.65, 1.0],
-           ["line", -67.5, -87.65, -67.5, -3.25], ["arc", -67.5, -3.25, -66.5, -2.25, -66.5, -3.25, 1.0],
-           ["line", -66.5, -2.25, -51.025, -2.25]]
+           ["line", -48.0, -88.65, -58.3, -88.65], ["arc", -58.3, -88.65, -59.3, -87.65, -58.3, -87.65, 1.0],
+           ["line", -59.3, -87.65, -59.3, -3.25], ["arc", -59.3, -3.25, -58.3, -2.25, -58.3, -3.25, 1.0],
+           ["line", -58.3, -2.25, -51.025, -2.25]]
     return rows[:i0] + ext + rows[i1 + 1:]
 
 def add_outline(board):
@@ -162,6 +177,17 @@ def main():
     if p1.GetPosition().x < p2.GetPosition().x:
         j3.SetOrientationDegrees(270)
 
+    # MXM card hold-downs (Foxconn drawing: dia 6.8 keepouts at footprint x +-37.5, y +66): M2 standoffs,
+    # card gap tall. Positions follow J3's placement.
+    for i, lx in enumerate((-37.5, 37.5)):
+        t = math.radians(j3.GetOrientationDegrees())      # KiCad: Y down, positive angle = CCW on screen
+        qx = lx * math.cos(t) + 66.0 * math.sin(t); qy = -lx * math.sin(t) + 66.0 * math.cos(t)
+        pos = pcbnew.VECTOR2I(j3.GetPosition().x + mm(qx), j3.GetPosition().y + mm(qy))
+        fp = load_fp("MountingHole:MountingHole_2.2mm_M2"); fp.SetReference(f"H{3 + i}"); fp.SetValue("MXM card hold-down")
+        fp.SetPosition(pos); board.Add(fp)
+        c = pcbnew.PCB_SHAPE(board); c.SetShape(pcbnew.SHAPE_T_CIRCLE); c.SetLayer(pcbnew.Dwgs_User); c.SetWidth(mm(0.15))
+        c.SetCenter(pos); c.SetEnd(pcbnew.VECTOR2I(pos.x + mm(3.4), pos.y)); board.Add(c)
+
     # mounting features
     for (u, v), fpid, ref in ((MOUNT_SCREW, "MountingHole:MountingHole_2.2mm_M2", "H1"),
                               (REAR_INSERT, "MountingHole:MountingHole_2.7mm", "H2")):
@@ -175,8 +201,12 @@ def main():
     text(board, U1, STIFFENER[0], STIFFENER[1] - 1.5, "INTERPOSER STIFFENER: 4.45 mm above board top - card must not overlap", 1.0)
     rect(board, U2, WALLS, 0.3)
     text(board, U2, WALLS[0] + 1, WALLS[1] + 2.5, "SHELL INNER WALLS AT BOARD LEVEL (Framework model)", 1.0)
+    for box, label in KEEPOUTS:
+        rect(board, U2, box, 0.3)
+        text(board, U2, box[0] + 0.5, box[1] - 1.0, label, 0.8)
     text(board, CM, -66, -95, "MECHANICAL PLACEMENT DRAFT - NOT FOR FAB. Parts right of the board are unplaced (staging).", 1.5)
-    text(board, CM, -66, -98, "Open issue: J3 rear end overruns the shell rear wall by ~1.6 mm with S55B (see RESEARCH_TODO item 7b).", 1.5)
+    text(board, CM, -66, -98, "Open issues (RESEARCH_TODO item 7b): J3 needs 88 mm along the left edge but 85.4 mm is free (rear wall to front ledge);", 1.5)
+    text(board, CM, -66, -101, "card + socket need ~109.7 mm across but the cover-screw bosses leave 107.05 mm. The stock shell needs modifying.", 1.5)
 
     board.Save(OUT)
     print("wrote", OUT, "footprints:", len(board.GetFootprints()))
