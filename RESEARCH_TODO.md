@@ -246,13 +246,13 @@ two Framework/community files in `reference/` are kept locally and not published
     dimensions 16.65 mm, and the footprints use 16.65. The 0.35 mm gap is within the error of judging hole
     centres by eye; to confirm, measure far edge to far edge and subtract one hole diameter (or near edge
     to near edge plus one diameter). The drawing stays the reference unless that also reads ~17.0 mm.
-  - Mounting holes, measured from the interposer pair (identification from the photo, to confirm):
+  - Mounting holes, measured to hole centres from the interposer pair (holes confirmed by the user):
     - D (yellow pad pair, left): 23.5 mm left of the left interposer's left edge.
     - F (right): 29.2 mm right of the right interposer's right edge.
     - A (top edge, roughly above the right interposer): 94.8 mm above the right interposer's top edge.
     In footprint coordinates (origin midway between the interposer screws, interposer courtyard
-    x -15.4..+15.3 mm): D at x ~ -38.9 mm, F at x ~ +44.5 mm, so D-F ~ 83.4 mm. Whether these were taken to
-    hole centres or hole edges is still to confirm.
+    x -15.4..+15.3 mm): D at x ~ -38.9 mm, F at x ~ +44.5 mm, so D-F ~ 83.4 mm (the interposer edges are
+    taken from the footprint courtyard, so allow a few tenths of a millimetre).
   - Still needed for the layout: how these relate to the graphics shell. The shell's two posts at the
     interposer edge are 35.8 mm apart; if they are centred on the interposer pair they sit at x ~ +-17.9 mm,
     ~2.5 mm outside each interposer. The riser's outline notches next to the interposers suggest that, but
