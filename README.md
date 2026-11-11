@@ -116,9 +116,11 @@ R20-R35 stay 0R and the adapter's C10-C25 couple the card's TX.
   Everything else sits unplaced beside the board, with nets, so the ratsnest shows. No tracks.
 - User layers: the MXM card outline, the interposer stiffener keep-out (4.45 mm tall; the card must not
   overlap it) and the shell's inner walls.
-- Known conflicts with the stock shell: the socket needs 88 mm along the left edge where ~85.4 mm is free,
-  and card plus socket need ~109.7 mm across where the shell's cover-screw bosses leave 107.05 mm. Both are
-  drawn on the User layers; options are in `RESEARCH_TODO.md` item 7b.
+- Known conflicts with the stock shell: with the 5.5 mm socket the card is pinned behind the interposer
+  stiffener, so the socket's rear end overruns the shell's rear wall, and card plus socket need ~109.7 mm
+  across where the shell's cover-screw bosses leave 107.05 mm. Both are drawn on the User layers
+  (`RESEARCH_TODO.md` item 7b). The chosen way out is a printed bottom frame with the 7.8 mm socket:
+  see `FRAME_PLAN.md`. The draft has not been moved to that layout yet.
 
 ## Still to do
 `RESEARCH_TODO.md` lists everything that needs a document, a measurement or a laptop. After that: write

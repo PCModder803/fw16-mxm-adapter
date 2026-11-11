@@ -284,13 +284,14 @@ two Framework/community files in `reference/` are kept locally and not published
     v -5.25..+0.3 and rises 4.45 mm above the board top; the spring screws reach 5.16 mm. With S55B the
     card underside is 2.7 mm up, so the card's front edge must stay behind v -5.25. The shell's rear wall
     is at v -89.15 (board edge -87.25, USB tab -88.55).
-  - The socket is ~88 mm long over its end tabs (footprint pads to +-44 mm) against the card's 82 mm.
-    With the card centred in the socket and its front edge at v -5.75, the socket spans v -90.75..-2.75:
-    its rear end overruns the rear wall by ~1.6 mm. The draft shows this.
+  - The socket body is 88.9 mm long and its ear pads reach +-45.5 mm (91.0 mm of copper) against the
+    card's 82 mm. With the card centred in the socket and its front edge at v -5.75, the socket's pegs and
+    ears span v -90.75..-2.75 and its pads -92.25..-1.25: the rear end overruns the rear wall. The draft
+    shows this.
   - Foxconn AS-series datasheet (2026-11-10; `reference/framework_pcb_ref/foxconn/AS0B826-S78B-7H.pdf`,
     from embeddedartists.com, local only; one sheet for the 4.3/5.5/7.8 mm heights). Recommended layout:
-    pegs 82.00 apart (dia 1.10 at the E-pin end, 1.60 at the pin-281 end); ear tabs 3.00 x 5.15 reaching
-    3.00 past each peg (88 mm overall); housing 84.6 long and 8.90 deep (4.20 on one side of the pegs);
+    pegs 82.00 apart (dia 1.10 at the E-pin end, 1.60 at the pin-281 end); ear pads 3.00 x 5.15 centred
+    3.00 past each peg (91.0 mm of copper overall; socket body 88.9 mm); housing 84.6 long and 8.90 deep (4.20 on one side of the pegs);
     card hold-down keepouts dia 6.8 at +-37.5 mm, 66.00 mm from the peg line toward the card. All 280 pad
     positions in our footprint match (the power pins are merged into wide pads, centred correctly). The
     card is centred between the pegs. The sheet does not give each height's card gap.
@@ -305,17 +306,18 @@ two Framework/community files in `reference/` are kept locally and not published
     - Across: card (105) plus the housing behind the finger edge (~4.7) needs ~109.7 mm; the bosses leave
       107.05. With the housing just clear of the left boss, the card ends at u 50.7, 3 mm past the right
       boss, in the boss's height band.
-    - Along: the socket's 88 mm (ear to ear) has only ~85.4 mm free on the left edge, between the rear wall
-      (v -89.15) and a frame ledge at board level at the front-left (u -62..-51, v > -3.3; the reason the
-      stock board has a notch there).
-  - So the stock shell needs modifying. The bottom frame is plastic. Ways out:
-    (1) Cut down the right cover-screw boss (ledge, nut, screw) and fasten the printed cover elsewhere, and
-        either pocket the rear wall ~2-3 mm behind the socket or trim the front-left ledge.
-    (2) S78B: if its card gap is ~5.0 mm (7.8 - 2.8, as for S55B; unconfirmed), the card clears the
-        ledges (<= 5.0 mm) and the interposer stiffener (4.45 mm), so it can sit further toward the
-        laptop. The socket body still needs 88 mm along the left edge, the right boss's screw (7.0 mm)
-        still meets the card, and it costs ~2.3 mm of cooler height.
-    (3) Print a replacement bottom frame as well as the cover (most work, most freedom).
+    - Along: the card is pinned behind the stiffener, so the socket can't slide forward. Its rear pad
+      would end at v -92.25, but the rear wall is only 1.3-1.6 mm thick (inner face -89.15, outer face
+      -90.75, which is the laptop's rear surface), so no pocket can make room. At the front, a frame
+      ledge at board level (u -62..-51, v > -3.3; the reason the stock board has a notch there) is in
+      the way too.
+  - So S55B does not fit, even with the shell modified. With S78B (card gap ~5.0 mm if it follows
+    7.8 - 2.8 as S55B does; unconfirmed) the card clears the stiffener (4.45 mm) and can sit over it:
+    socket centre v -43.05, pads -88.55..+2.45, card -84.05..-2.05, all inside the rear wall. That still
+    needs the front-left ledge and the right cover-screw boss gone and the left fan cable rerouted, and
+    costs ~2.3 mm of cooler height.
+  - Chosen (2026-11-10): print a replacement bottom frame (outside copied from Framework's model, inside
+    redrawn) and use S78B. Plan, inside-feature list and open checks: `FRAME_PLAN.md`.
   - Card hold-down H4 (rear) was moved clear of the rear shell boss notch at (2.675, -83.65) by keeping
     the card's finger edge at u -54.3; H3/H4 now sit at (11.7, -9.25) / (11.7, -84.25).
   - Also from the model: an EMI gasket (IFGP6_GPU_EMI_GASKET, u -65..-61, v -45.7..-25.3, up to 3.9 mm)

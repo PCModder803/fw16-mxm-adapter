@@ -44,7 +44,8 @@ CARD_V_FRONT = STIFFENER[1] - 0.5
 CARD_U_LEFT = -54.3
 CARD = (CARD_U_LEFT, CARD_V_FRONT - 82.0, CARD_U_LEFT + 105.0, CARD_V_FRONT)
 # J3: socket axis along v. Foxconn's drawing: the card is centred between the pegs (82 mm apart), the
-# ear tabs reach 3 mm past each peg (88 mm overall), and the card hold-downs sit 66 mm toward the card.
+# ear pads are centred 3 mm past each peg (copper 91.0 mm overall, body 88.9 mm), and the card
+# hold-downs sit 66 mm toward the card.
 # The card's finger edge is taken on the peg line (consistent with the 66 mm hold-downs; check against
 # the MXM 3.1 mechanical drawing). Footprint +y points toward the card.
 J3_U, J3_V = CARD_U_LEFT, (CARD[1] + CARD[3]) / 2
@@ -205,8 +206,8 @@ def main():
         rect(board, U2, box, 0.3)
         text(board, U2, box[0] + 0.5, box[1] - 1.0, label, 0.8)
     text(board, CM, -66, -95, "MECHANICAL PLACEMENT DRAFT - NOT FOR FAB. Parts right of the board are unplaced (staging).", 1.5)
-    text(board, CM, -66, -98, "Open issues (RESEARCH_TODO item 7b): J3 needs 88 mm along the left edge but 85.4 mm is free (rear wall to front ledge);", 1.5)
-    text(board, CM, -66, -101, "card + socket need ~109.7 mm across but the cover-screw bosses leave 107.05 mm. The stock shell needs modifying.", 1.5)
+    text(board, CM, -66, -98, "Open issues (RESEARCH_TODO item 7b): with S55B the card is pinned behind the stiffener, so J3 overruns the rear wall;", 1.5)
+    text(board, CM, -66, -101, "card + socket need ~109.7 mm across but the cover-screw bosses leave 107.05 mm. Plan: printed frame + S78B (FRAME_PLAN.md).", 1.5)
 
     board.Save(OUT)
     print("wrote", OUT, "footprints:", len(board.GetFootprints()))
