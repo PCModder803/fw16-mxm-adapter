@@ -16,3 +16,10 @@ reference/evidence/
 
 # Intermediate analysis of the community board (derived from its unlicensed file)
 reference/analysis/
+
+# Framework's graphics-module STEP (47 MB, CC BY 4.0): get it from FrameworkComputer/ExpansionBay
+reference/*.stp
+reference/*.step
+
+# Windows folder metadata
+desktop.ini

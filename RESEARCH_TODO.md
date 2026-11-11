@@ -110,8 +110,8 @@ two Framework/community files in `reference/` are kept locally and not published
 - Framework's drawing gives the module as 26.15 mm thick overall. The UMA expansion-bay PCB drawing
   limits components to 5.0 mm on top and 1.4 mm underneath (`reference/evidence/fw_ref_pcb_sheet1_height_limits.png`),
   but that is for the fan shell, not the graphics module.
-- Do: open `Mechanical/GraphicsModule/FW_GRAPHICS_MODULE_REF_00-1.stp` (in the ExpansionBay repo) in
-  FreeCAD or the KiCad 3D viewer. Measure from the board seating plane to the inside of the top cover,
+- Done 2026-11-10 (board outline and fixings, item 7b): `Mechanical/GraphicsModule/FW_GRAPHICS_MODULE_REF_00-1.stp`
+  (in the ExpansionBay repo). Original plan: open it in FreeCAD or the KiCad 3D viewer. Measure from the board seating plane to the inside of the top cover,
   then subtract the card's thickness and the cooler you design for it (items 3 and 3b).
 
 - The bare graphics-module shell (on order) answers this directly: measure seating plane to cover with
@@ -190,8 +190,7 @@ two Framework/community files in `reference/` are kept locally and not published
   - Footprint change still needed: the 2.7 mm holes are bare NPTH. The insert needs a copper ring (>4.0 mm) to
     solder its flange on the side opposite the interposer. Confirm which side and the barrel fit on Framework's
     PCIe test board before editing the footprints.
-  - Still unknown: where the interposer sits relative to the graphics shell. The bay-to-laptop posts are
-    35.8 mm apart, which is not the 16.65 mm insert spacing. Measure on the PCIe test board.
+  - Interposer position in the graphics shell: resolved from Framework's module model (item 7b).
 - Cover checks before printing: (1) the recessed area may exist for intake air or laptop-side clearance, so
   check that filling it doesn't block the fan intakes or hit anything when the module is installed;
   (2) print in a heat-tolerant plastic (PC, ASA or nylon, or a printing-service PA12), not PLA, and treat PETG
@@ -243,9 +242,7 @@ two Framework/community files in `reference/` are kept locally and not published
   - Inserts are soldered on the bottom side; the interposers sit on the top side. Matches the footprint plan:
     add a bottom-side copper ring (> 4.0 mm) around each 2.7 mm interposer hole.
   - Interposer screw holes: the user's caliper reading is 17.0 mm centre to centre; Framework's drawing
-    dimensions 16.65 mm, and the footprints use 16.65. The 0.35 mm gap is within the error of judging hole
-    centres by eye; to confirm, measure far edge to far edge and subtract one hole diameter (or near edge
-    to near edge plus one diameter). The drawing stays the reference unless that also reads ~17.0 mm.
+    and module model both give 16.65 mm, which the footprints use.
   - Mounting holes, measured to hole centres from the interposer pair (holes confirmed by the user):
     - D (yellow pad pair, left): 23.5 mm left of the left interposer's left edge.
     - F (right): 29.2 mm right of the right interposer's right edge.
@@ -257,10 +254,29 @@ two Framework/community files in `reference/` are kept locally and not published
     32 mm left of insert 1 and 35.25 mm right of insert 2, i.e. x ~ -40.3 / +43.6 mm and 83.9 mm apart.
     The riser's D/F (-38.9 / +44.5, 83.4 mm apart) agree to ~1.4 mm, so D/F are very likely the same
     laptop-side mounting points. The fan module in the laptop should show the same holes.
-  - Still needed for the layout: how these relate to the graphics shell. The shell's two posts at the
-    interposer edge are 35.8 mm apart; if they are centred on the interposer pair they sit at x ~ +-17.9 mm,
-    ~2.5 mm outside each interposer. The riser's outline notches next to the interposers suggest that, but
-    it needs a measurement in the shell: each post to the edge of the interposer opening.
+  - How these relate to the graphics shell: answered by Framework's module model (next item), so no
+    further shell measurement is needed for the outline.
+- Graphics-module model (2026-11-10): Framework's `FW_GRAPHICS_MODULE_REF_00-1.stp` (ExpansionBay repo,
+  CC BY 4.0; the RX 7700S module, kept locally, not redistributed). Read with a small STEP script. The
+  module board (IFGP6_GPU_EF33G) outline is in `reference/fw_7700s_board_outline.csv`. Coordinates below:
+  u across the bay, v toward the laptop edge, origin midway between the two interposer screws.
+  - Board 105.4 x 94.3 mm (u -58.03..+47.38, v -88.55..+5.75), 1.156 mm thick in the model (a 1.2 mm
+    board, as on Framework's fan board). The laptop-side edge is 5.75 mm beyond the interposer screws.
+  - Interposer screws/inserts at (-8.325, 0) and (+8.325, 0): 16.65 mm apart, confirming the drawing
+    (the 17.0 mm caliper reading was measurement error). Inserts (PHO16_FBEAM_STANDOFF_A) on the
+    bottom, interposer housings on the top, as on the riser.
+  - Shell posts at the interposer edge (frame M2 nuts): (-20.825, +2.85) and (+20.175, +2.85), 41.0 mm
+    centre to centre. The board has 3.0 mm-radius notches around them. The 35.8 mm measured in the shell
+    fits the gap between the posts' near sides if the posts are ~5.2 mm across.
+  - Board fixings: an M2 screw into a frame boss at (+44.675, -6.15); at the rear, a frame boss inside a
+    2.8 mm-radius board notch at (+2.675, -83.65) and a board insert at (-17.325, -83.65), both with M2x3
+    screws. Rubber supports under the board at (+29.875, -28.55) and (-20.025, -31.05).
+  - Heights: the board underside is 3.34 mm above the floor plate (MXM_BOX_AL top), matching the 3.3 mm
+    measured. So "top of standoff" in item 6 = the board's underside.
+  - Rear edge: a USB-C tab (u -12.8..-1.8, to v -88.55) where the module's port sits.
+  - Next for the layout: start from this outline. Check that the 105 mm card plus J3's housing fits across
+    the 105.4 mm board width (the socket body extends past the card edge; needs the Foxconn drawing) and
+    whether the outline can grow into the space toward the fans.
 
 ## Questions for Framework (no graphics module available here)
 
