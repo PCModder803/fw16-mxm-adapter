@@ -277,6 +277,30 @@ two Framework/community files in `reference/` are kept locally and not published
   - Next for the layout: start from this outline. Check that the 105 mm card plus J3's housing fits across
     the 105.4 mm board width (the socket body extends past the card edge; needs the Foxconn drawing) and
     whether the outline can grow into the space toward the fans.
+- Placement draft (2026-11-10, `generate_pcb.py` -> `fw16_mxm_adapter.kicad_pcb`). Findings from the model:
+  - Width is not the limit. The shell's inner side walls at board level are at u -73.29 and +58.64
+    (131.9 mm apart; the fans sit outside them). The board can grow ~15 mm left and ~11 mm right. This
+    disagrees with the 107 mm measured "fan to fan" earlier: re-measure wall to wall at board height.
+  - Depth is the limit. The interposer stiffener (74P_STIFFENER-C_P, both sides) covers u -21.2..+21.2,
+    v -5.25..+0.3 and rises 4.45 mm above the board top; the spring screws reach 5.16 mm. With S55B the
+    card underside is 2.7 mm up, so the card's front edge must stay behind v -5.25. The shell's rear wall
+    is at v -89.15 (board edge -87.25, USB tab -88.55).
+  - The socket is ~88 mm long over its end tabs (footprint pads to +-44 mm) against the card's 82 mm.
+    With the card centred in the socket and its front edge at v -5.75, the socket spans v -90.75..-2.75:
+    its rear end overruns the rear wall by ~1.6 mm. The draft shows this.
+  - Assumed, to check on the Foxconn AS0B826 drawing: the card is centred on the socket, the finger edge
+    lies on the socket centreline, and the end-tab pads are where the community footprint has them. These
+    could move the result by a millimetre or two either way.
+  - Options: (1) S78B (7.8 mm): the card then clears the stiffener (needs its card gap > 4.45 mm, and the
+    card front edge behind the spring screws at v ~-1), so everything fits; costs ~2.3 mm of cooler height.
+    (2) Keep S55B and relieve the shell's rear wall locally (u -67..-57) by ~2 mm. (3) A shorter socket,
+    if one exists. Get the Foxconn drawing first; it decides between these.
+  - Also from the model: an EMI gasket (IFGP6_GPU_EMI_GASKET, u -65..-61, v -45.7..-25.3, up to 3.9 mm)
+    sits in the left extension area on the stock module; it belongs to the stock board's EMI and would be
+    left out. J4/J5 orientation is not yet checked against the model.
+  - Footprint issues DRC shows: J3 has no courtyard, its E3/E4 pads are too close to their neighbours,
+    and its 0.5 mm stagger gives solder-mask bridges; J1/J2 each carry both interposers' courtyards and
+    holes (expected while they share one position). All to fix against the drawings before routing.
 
 ## Questions for Framework (no graphics module available here)
 
