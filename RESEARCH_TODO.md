@@ -253,6 +253,10 @@ two Framework/community files in `reference/` are kept locally and not published
     In footprint coordinates (origin midway between the interposer screws, interposer courtyard
     x -15.4..+15.3 mm): D at x ~ -38.9 mm, F at x ~ +44.5 mm, so D-F ~ 83.4 mm (the interposer edges are
     taken from the footprint courtyard, so allow a few tenths of a millimetre).
+  - Cross-check: on Framework's fan-board drawing the two mounting holes along the interposer edge sit
+    32 mm left of insert 1 and 35.25 mm right of insert 2, i.e. x ~ -40.3 / +43.6 mm and 83.9 mm apart.
+    The riser's D/F (-38.9 / +44.5, 83.4 mm apart) agree to ~1.4 mm, so D/F are very likely the same
+    laptop-side mounting points. The fan module in the laptop should show the same holes.
   - Still needed for the layout: how these relate to the graphics shell. The shell's two posts at the
     interposer edge are 35.8 mm apart; if they are centred on the interposer pair they sit at x ~ +-17.9 mm,
     ~2.5 mm outside each interposer. The riser's outline notches next to the interposers suggest that, but
