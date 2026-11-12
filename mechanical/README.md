@@ -14,7 +14,8 @@ check, and what to check before printing.
 These files are a modified version of the graphics-module bottom frame (IFGP6_DIS_FRAME_BTM) from
 Framework Computer's FrameworkComputer/ExpansionBay repository, licensed under CC BY 4.0
 (https://creativecommons.org/licenses/by/4.0/). Changes:
-- a pocket in the rear wall behind the MXM socket;
+- lengthened by 3.7 mm at the rear over the full width (the rear wall, its vents and the corners moved
+  back unchanged);
 - the cover-screw bosses moved;
 - the rear-wall ribs trimmed;
 - two frame pins and a small front-left lip removed;

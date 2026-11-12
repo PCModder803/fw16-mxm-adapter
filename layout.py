@@ -33,12 +33,14 @@ J4_UV, J5_UV = (-46.3, 0.45), (37.22, 0.45)
 # Mounting features from the 7700S board: screw into a shell boss; rear insert (same ES00000NY00).
 MOUNT_SCREW = (44.675, -6.15)
 REAR_INSERT = (-17.325, -83.65)
-# Printed bottom frame (FRAME_PLAN.md; generate_frame.py builds it). Inner walls at board level as in
-# Framework's model (sides u -73.29 / +58.64, rear v -89.15) except a pocket in the rear wall behind the
-# socket, which pushes the outside back by 3.7 mm there (stock rear face v -90.75 -> -94.45).
-REAR_POCKET = (-60.0, -92.85, -47.3, -89.15)
-WALLS = [(-73.29, 5.2), (-73.29, -89.15), (REAR_POCKET[0], -89.15), (REAR_POCKET[0], REAR_POCKET[1]),
-         (REAR_POCKET[2], REAR_POCKET[1]), (REAR_POCKET[2], -89.15), (58.64, -89.15), (58.64, 5.2)]
+# Printed bottom frame (FRAME_PLAN.md; generate_frame.py builds it). Framework's frame lengthened by
+# REAR_STRETCH just in front of its rear wall, over the full width: the whole rear wall moves back
+# (inner face v -89.15 -> -92.85, the laptop's rear face -90.75 -> -94.45). Inner side walls at board
+# level stay at u -73.29 / +58.64.
+REAR_STRETCH = 3.7
+REAR_STRETCH_AT = -88.0        # plane the frame is split and lengthened at (only floor, side walls, ribs)
+REAR_INNER = -89.15 - REAR_STRETCH
+WALLS = [(-73.29, 5.2), (-73.29, REAR_INNER), (58.64, REAR_INNER), (58.64, 5.2)]
 # Cover-screw bosses moved outboard (stock: (-61.8, -65.6) and (50.0, -65.6), which met the socket
 # housing and the card); M2 heat-set insert in a dia 6.0 boss up to 5.0 mm above the board's underside.
 COVER_BOSSES = [(-66.0, -65.6), (55.0, -65.6)]
@@ -55,7 +57,7 @@ def outline_edges():
             rows.append(r)
     # Replace the stock left side (from the rear edge at u -13.125 round to the front notch at u -51.025)
     # with an extension that takes the MXM socket and its ear pads (v -92.25..-1.25): out to u -59.3,
-    # back to v -92.55 inside the rear-wall pocket, and forward to v -0.5 (the stock frame's front-left
+    # back to v -92.55 (the lengthened frame's rear wall is at -92.85), and forward to v -0.5 (the stock frame's front-left
     # ledge, which the printed frame leaves out). 0.3 mm copper to edge at both ends.
     i0 = next(i for i, r in enumerate(rows) if r[0] == "line" and float(r[1]) == -13.125 and float(r[2]) == -87.25)
     i1 = next(i for i, r in enumerate(rows) if r[0] == "line" and float(r[1]) == -51.025 and float(r[4]) == 4.75)

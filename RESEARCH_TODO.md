@@ -1,8 +1,9 @@
 # What still needs a document, a measurement or a laptop
 
 Open items, plus the findings that resolved earlier ones. Each open item says what it blocks, where to
-look, and what to bring back. Files under `reference/evidence/` and `reference/framework_pcb_ref/` and the
-two Framework/community files in `reference/` are kept locally and not published in this repository.
+look, and what to bring back. Files under `reference/evidence/` and `reference/framework_pcb_ref/`, and
+the Framework and community files in `reference/` (the mainboard schematic, the graphics-module STEP and
+the community board), are kept locally and not published in this repository.
 
 ## Documents to get
 
@@ -73,17 +74,17 @@ two Framework/community files in `reference/` are kept locally and not published
 - Decision (2026-11-06, revised 2026-11-07): S55B on a 1.2 mm adapter (Framework's reference thickness, for
   the interposer inserts), with a 3D-printed cover that is flat at the high (15.3 mm) level over the whole
   bay. See item 6.
-  S78B is dropped. Still confirm the 2.7 mm gap and the pad pattern on the drawing.
+  S78B is dropped (again on 2026-11-11 for the printed frame; item 7b).
 - The footprint assumes S55B. Stack heights confirmed by the user (2026-11-03): S55B = 5.5 mm,
-  S78B = 7.8 mm. Still to check on the drawing: that the pad pattern and board-lock/peg holes are the same
-  for both, so the footprint doesn't change with height.
+  S78B = 7.8 mm. Foxconn's AS-series sheet (item 7b) covers all heights with one pad and peg layout, and
+  the footprint matches it. The sheet does not give the card gap, so 2.7 mm still rests on Critical Link.
 - Earlier estimate (before the shell arrived): the user's 15 mm runs from the card's lowest back-side component to the top of the heatsink. The stack
   height is measured to the card PCB's underside, and the 1.8 mm back-side caps sit inside that gap. So
   above the stack: 15 - 1.8 = ~13.2 mm.
 - CORRECTION (2026-11-06): 5.5 mm is the connector's overall height, not the gap under the card. Critical
   Link's MXM connector wiki lists AS0B826-S55B-7H as 5.5 mm overall with 2.7 mm PCB-to-module spacing. The
   old budget here used 5.5 / 7.8 mm as that spacing and is withdrawn, along with the "5 mm too tall"
-  figures first written in item 6. Confirm 2.7 mm on the Foxconn drawing; S78B's spacing is still unknown.
+  figures first written in item 6. Foxconn's sheet doesn't state the gap (item 7b); S78B's is still unknown.
 - Lower option checked (2026-11-06): JAE B2 parts are not a dependable choice. JAE bulletin MB-370 (Oct 2020)
   lists MM70-314B2-1-R500 and MM70-314-310B2-1/-2-R500 as discontinued, 4.3 mm overall, "Type B2" footprint,
   card-interface compatible only, so the footprint differs and no B2 drawing was found. DigiKey shows them
@@ -114,7 +115,7 @@ two Framework/community files in `reference/` are kept locally and not published
   (in the ExpansionBay repo). Original plan: open it in FreeCAD or the KiCad 3D viewer. Measure from the board seating plane to the inside of the top cover,
   then subtract the card's thickness and the cooler you design for it (items 3 and 3b).
 
-- The bare graphics-module shell (on order) answers this directly: measure seating plane to cover with
+- The bare graphics-module shell (arrived; measured below) answers this directly: measure seating plane to cover with
   calipers. Also check whether it includes the interposer board and fans, and the size of the rear port
   cutout (needed for item 11).
 
@@ -200,8 +201,8 @@ two Framework/community files in `reference/` are kept locally and not published
   interposer board on the standoffs (1.6 mm clear above the inductors, but PCIe must cross the 3.3 mm step and
   the floor ribs must clear); (c) a taller custom cover. Heat pipes to the far fan must cross the inductor row.
 - Footprint result: the card is 105 x 82 mm, so 105 mm runs fan to fan (as in the photo), with 2 mm spare
-  before J3's body is counted, and the card is ~2 mm deeper than the usable 80 mm. Check J3's length beyond
-  the card edge on the Foxconn drawing.
+  before J3's body is counted, and the card is ~2 mm deeper than the usable 80 mm. J3's length beyond the
+  card was later read from Foxconn's sheet; it doesn't fit the stock shell, hence the printed frame (item 7b).
 
 ### 7. Board-ID pull-up rail voltage (R1/R2)
 - 330k on ID0/ID1 reads as BOARD_VERSION_12 only if the laptop's 100k pull-up goes to about 2.81 V. That
@@ -274,9 +275,8 @@ two Framework/community files in `reference/` are kept locally and not published
   - Heights: the board underside is 3.34 mm above the floor plate (MXM_BOX_AL top), matching the 3.3 mm
     measured. So "top of standoff" in item 6 = the board's underside.
   - Rear edge: a USB-C tab (u -12.8..-1.8, to v -88.55) where the module's port sits.
-  - Next for the layout: start from this outline. Check that the 105 mm card plus J3's housing fits across
-    the 105.4 mm board width (the socket body extends past the card edge; needs the Foxconn drawing) and
-    whether the outline can grow into the space toward the fans.
+  - Next for the layout (done below): start from this outline, check that the 105 mm card plus J3's
+    housing fits across the 105.4 mm board width, and whether the outline can grow toward the fans.
 - Placement draft (2026-11-10, `generate_pcb.py` -> `fw16_mxm_adapter.kicad_pcb`). Findings from the model:
   - The shell's inner side walls at board level are at u -73.29 and +58.64 (131.9 mm apart; the fans sit
     outside them), but two cover-screw bosses narrow the card's height band to 107.05 mm (below).
@@ -318,12 +318,13 @@ two Framework/community files in `reference/` are kept locally and not published
     costs ~2.3 mm of cooler height.
   - Chosen (2026-11-10): print a replacement bottom frame (outside copied from Framework's model, inside
     redrawn).
-  - Revised (2026-11-11): keep S55B and pocket the rear wall 3.7 mm behind the socket. With S78B the
+  - Revised (2026-11-11): keep S55B and lengthen the printed frame 3.7 mm at the rear, over the full
+    width (a first mockup pocketed only the rear wall behind the socket). With S78B the
     card's front hold-down would land on the right interposer's stiffener; clearing it needs the socket
     ~2.2 mm further back anyway. S55B keeps 2.3 mm of cooler height and a documented card gap. The
     mockup (`generate_frame.py`, `mechanical/`) passes a fit check against the board, socket and card.
-    Details and open checks (lid/hinge clearance behind the pocket first): `FRAME_PLAN.md`.
-  - The PCB draft follows (draft-2): board extended into the pocket (rear edge v -92.55) and forward to
+    Details and open checks (lid/hinge clearance behind the longer rear first): `FRAME_PLAN.md`.
+  - The PCB draft follows (draft-2): board extended back to v -92.55 (rear wall now at -92.85) and forward to
     v -0.5 at the front-left; layout numbers now in `layout.py`, shared with the frame generator.
   - Fixed in the draft: the outline's half-circle notches (round the shell posts, the rear boss and the
     rear pin) were drawn bulging out of the board instead of cutting into it. The CSV gives no arc
@@ -333,9 +334,10 @@ two Framework/community files in `reference/` are kept locally and not published
   - Also from the model: an EMI gasket (IFGP6_GPU_EMI_GASKET, u -65..-61, v -45.7..-25.3, up to 3.9 mm)
     sits in the left extension area on the stock module; it belongs to the stock board's EMI and would be
     left out. J4/J5 orientation is not yet checked against the model.
-  - DRC after the footprint update: J1/J2 each carry both interposers' courtyards and holes (expected
-    while they share one position); J5's nail pad is close to the front-right edge arc; U4's stock MSOP-10
-    flags clearance in the staging area. No J3 errors remain apart from it overrunning the outline.
+  - DRC on draft-2 (2026-11-11), apart from the 359 unrouted connections: J1/J2 overlap and each carry
+    both interposers' holes in their courtyards (expected while they share one position); U4's stock
+    MSOP-10 pads (0.5 mm pitch) are closer than the default clearance rule; H2/H4 reference text is near
+    the board edge. No copper-to-edge errors.
 
 ## Questions for Framework (no graphics module available here)
 
@@ -420,8 +422,8 @@ two Framework/community files in `reference/` are kept locally and not published
   routing. Any other port means cutting the shell. VBUS comes out of the 5V_ALW budget (2.5 A), which the
   card may already use in full, so check that first.
 - Opening measured in item 6. It spans 2.4-5.65 mm above the standoff, which is the same height band as the
-  card, and the card already reaches about to the rear limit of the usable area. So a receptacle may not fit
-  behind the card: check the gap between the card edge and the rear wall. A top-mount receptacle on the
+  card. In the stock shell the card reaches about to the rear wall; the printed frame (item 7b) leaves
+  5.1 mm between the card's rear edge and the wall, which is still tight for a receptacle. A top-mount receptacle on the
   1.2 mm adapter would also sit ~1.2 mm low (board top 1.2 mm vs opening bottom 2.4 mm). Treat USB-C as a
   later revision.
 - Still needed: which MXM DP port is live (ask X-Vision).

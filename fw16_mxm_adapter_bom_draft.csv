@@ -1,6 +1,6 @@
 Reference,Value,Footprint,Notes
 J1,FW16_ExpBay_Signal,fw16_mxm:FW16_FXBeam_Signal,Framework Expansion Bay signal interposer. Pinout from FrameworkComputer/ExpansionBay Electrical/README.md; place at the same XY as J2
-J3,AS0B826-S55B-7H,fw16_mxm:MXM3_AS0B826-S55B-7H,"MXM 3.0 Type B socket (target X-Vision RX 6600 XT); S55B: 5.5 mm overall, 2.7 mm card gap (confirm on Foxconn drawing); on a 1.2 mm adapter it needs the flat printed bay cover. Pinout from ADLINK/Advantech MXM 3.1 tables"
+J3,AS0B826-S55B-7H,fw16_mxm:MXM3_AS0B826-S55B-7H,"MXM 3.0 Type B socket (target X-Vision RX 6600 XT); S55B: 5.5 mm overall, 2.7 mm card gap (Critical Link; Foxconn's sheet doesn't state it); on a 1.2 mm adapter it needs the flat printed bay cover. Pinout from ADLINK/Advantech MXM 3.1 tables"
 R20,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
 R21,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed
 R22,0R,Resistor_SMD:R_0402_1005Metric,Host->card PCIe link: 0R (host TX already AC-coupled); fit 220nF instead if needed

@@ -97,7 +97,8 @@ The community board this started from is on the Framework forum (t/74018).
   Connector pins are typed passive, so ERC can't catch direction mistakes.
 - Netlist: every PCIe/DP lane, sideband net, power rail, eFuse pin and fan net was checked against the
   intended pins.
-- Not verified: the drawing's visual layout (no renderer available here), and anything electrical/physical.
+- Not verified: the schematic drawing's layout in detail (the PDF has only been looked over as a whole),
+  and anything electrical or physical on hardware.
 
 ## Evidence for the PCIe direction
 MXM lane names are system-relative: host PEX_TX -> MXM PEX_TX, MXM PEX_RX -> host PEX_RX.
@@ -112,13 +113,13 @@ R20-R35 stay 0R and the adapter's C10-C25 couple the card's TX.
 the printed bottom frame below. The positions and the outline live in `layout.py`, which the frame
 generator uses too:
 - Outline: Framework's RX 7700S module board (from `reference/fw_7700s_board_outline.csv`), extended on the
-  left, at the rear (into the frame's rear pocket) and at the front-left for the MXM socket. 1.2 mm, 6
+  left, at the rear (to the printed frame's rear wall, which sits 3.7 mm further back) and at the front-left for the MXM socket. 1.2 mm, 6
   copper layers as a placeholder for a JLCPCB stackup.
 - Placed: J1/J2 interposers at the 7700S position, J3 along the left edge with the card extending across the
   bay, J4/J5 fan connectors near the 7700S positions, a screw hole and a rear insert at the 7700S fixings.
   Everything else sits unplaced beside the board, with nets, so the ratsnest shows. No tracks.
 - User layers: the MXM card outline, the interposer stiffener keep-out (4.45 mm tall; the card must not
-  overlap it), and the printed frame's inner walls, rear pocket and cover bosses.
+  overlap it), and the printed frame's inner walls and cover bosses.
 - Why a new frame: in the stock shell the socket's rear end overruns the rear wall (the card is pinned
   behind the interposer stiffener), and card plus socket need ~109.7 mm across where the cover-screw
   bosses leave 107.05 mm (`RESEARCH_TODO.md` item 7b).
@@ -126,13 +127,14 @@ generator uses too:
 ## Printed bottom frame (mockup)
 `generate_frame.py` takes Framework's bottom frame out of their graphics-module STEP and changes the
 inside for this adapter:
-- a 3.7 mm pocket in the rear wall behind the socket;
+- lengthened by 3.7 mm at the rear over the full width, so the socket's rear end fits and there is
+  room behind the card for heat pipes;
 - the cover-screw bosses moved outboard;
 - a few small features removed.
 
 It checks the result against the board, socket and card, and writes `mechanical/printed_frame_mockup.step`
 and `.stl`, with renders in `mechanical/preview/`. It is not for print yet: `FRAME_PLAN.md` has the
-changes, the fit check and what to check first (the laptop's clearance behind the pocket, among others).
+changes, the fit check and what to check first (the laptop's clearance behind the longer rear, among others).
 The frame files are CC BY 4.0, credited to Framework Computer (`mechanical/README.md`).
 
 ## Still to do

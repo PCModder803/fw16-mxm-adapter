@@ -2,7 +2,8 @@
 """Generate the printed bottom frame MOCKUP (not for print yet) from Framework's graphics-module model.
 
 It takes the stock plastic bottom frame (IFGP6_DIS_FRAME_BTM) out of FW_GRAPHICS_MODULE_REF_00-1.stp,
-keeps its outside, and changes the inside for the MXM adapter (FRAME_PLAN.md). Then it checks the
+lengthens it 3.7 mm at the rear over the full width (the outside otherwise as stock), and changes the
+inside for the MXM adapter (FRAME_PLAN.md). Then it checks the
 result against the adapter board, the MXM socket and the card, and writes STEP and STL files.
 
 Needs Python 3.11+ with the OpenCascade bindings (no KiCad):
@@ -31,11 +32,15 @@ from OCP.BRepBndLib import BRepBndLib
 from OCP.gp import gp_Pnt, gp_Dir, gp_Ax2, gp_Vec
 from OCP.BRepAlgoAPI import BRepAlgoAPI_Cut, BRepAlgoAPI_Fuse, BRepAlgoAPI_Common
 from OCP.BRepPrimAPI import BRepPrimAPI_MakeBox, BRepPrimAPI_MakeCylinder, BRepPrimAPI_MakePrism
-from OCP.BRepBuilderAPI import BRepBuilderAPI_MakePolygon, BRepBuilderAPI_MakeFace
+from OCP.BRepBuilderAPI import BRepBuilderAPI_MakePolygon, BRepBuilderAPI_MakeFace, BRepBuilderAPI_Transform
+from OCP.BRepAdaptor import BRepAdaptor_Surface
+from OCP.GeomAbs import GeomAbs_Plane
+from OCP.gp import gp_Trsf
+from OCP.TopoDS import TopoDS
 from OCP.BRepMesh import BRepMesh_IncrementalMesh
 from OCP.StlAPI import StlAPI_Writer
 from OCP.TopExp import TopExp_Explorer
-from OCP.TopAbs import TopAbs_SOLID
+from OCP.TopAbs import TopAbs_SOLID, TopAbs_FACE
 from OCP.GProp import GProp_GProps
 from OCP.BRepGProp import BRepGProp
 import layout as L
@@ -51,12 +56,9 @@ def W(u, v, h): return (u + DX, h + DY, v + DZ)
 
 # ------------------------------------------------------------------ frame dimensions (from the model)
 FLOOR_TOP, FLOOR_BOTTOM = -2.7, -4.2        # plastic floor behind the aluminium plate, at the rear
-REAR_WALL_TOP = 10.6                        # rear wall: inner face v -89.15, outer face -90.75
-REAR_OUTER = -90.75
-WALL = 1.6                                  # wall thickness used for the new pocket (stock rear wall 1.3-1.6)
+REAR_WALL_TOP = 10.6                        # rear wall: inner face v -89.15, outer face -90.75 (stock)
 STOCK_COVER_BOSSES = [(-61.8, -65.6, 3.0), (50.0, -65.6, 3.3)]   # u, v, cut radius (boss r 2.4 + its web)
 BOSS_R, BOSS_TOP, INSERT_R, INSERT_DEPTH = 3.0, 5.0, 1.6, 4.0      # M2 heat-set insert (dia 3.2 x 4)
-POCKET_TOP = 8.0                            # socket top is h 6.7 (board 1.2 + S55B 5.5)
 # Frame pins that run through Framework's own board model at board level (its board must have holes
 # there that the model leaves out); the adapter is located by the interposer screws and posts instead.
 BOARD_PINS = [(32.5, 3.7), (-35.9, 3.7)]
@@ -113,14 +115,29 @@ def load_part(path, name):
     return found[0]
 
 # ------------------------------------------------------------------ the edits
+def stretch(frame, v_at, d):
+    """Lengthen the frame by d at the plane v = v_at: everything behind the plane moves back by d, and
+    the frame's cross-section at the plane is extruded to fill the gap. Outside features (rear wall,
+    vents, corners) are kept as they are, only further back."""
+    half = box(-400, v_at - 200, -50, 400, v_at, 50)                # everything behind the plane
+    rear, front = common(frame, half), cut(frame, half)
+    t = gp_Trsf(); t.SetTranslation(gp_Vec(0, 0, -d))                # world z is v
+    rear = BRepBuilderAPI_Transform(rear, t, True).Shape()
+    out, ex = front, TopExp_Explorer(front, TopAbs_FACE)
+    while ex.More():                                                 # the cut faces on the plane
+        f = TopoDS.Face(ex.Current()); ex.Next()
+        a = BRepAdaptor_Surface(f)
+        if a.GetType() != GeomAbs_Plane: continue
+        n, o = a.Plane().Axis().Direction(), a.Plane().Location()
+        if abs(abs(n.Z()) - 1) > 1e-9 or abs(o.Z() - (v_at + DZ)) > 1e-6: continue
+        out = fuse(out, BRepPrimAPI_MakePrism(f, gp_Vec(0, 0, -d)).Shape())
+    return fuse(out, rear)
+
 def modify(frame):
-    u0, v_pocket, u1, _ = L.REAR_POCKET
-    # 1. Rear pocket behind the socket: open the rear wall, then add a box behind it with its own floor,
-    #    walls and roof. The outside moves from v -90.75 to -(92.85 + 1.6) = -94.45 over this width.
-    frame = cut(frame, box(u0, REAR_OUTER - 0.2, FLOOR_TOP, u1, -89.0, POCKET_TOP))
-    shell = cut(box(u0 - WALL, v_pocket - WALL, FLOOR_BOTTOM, u1 + WALL, REAR_OUTER + 0.25, REAR_WALL_TOP),
-                box(u0, v_pocket, FLOOR_TOP, u1, -89.0, POCKET_TOP))
-    frame = fuse(frame, shell)
+    # 1. Lengthen the frame over its full width just in front of the rear wall, so the socket's rear end
+    #    and its ear pad fit inside: rear wall inner face v -89.15 -> -92.85, rear face -90.75 -> -94.45.
+    #    The plane only crosses the floor, the side walls and the rear-wall ribs.
+    frame = stretch(frame, L.REAR_STRETCH_AT, L.REAR_STRETCH)
     # 2. Cover-screw bosses: remove the stock ones (they meet the socket housing and the card) down to the
     #    floor, and add new ones outboard with an M2 heat-set insert hole.
     for u, v, r in STOCK_COVER_BOSSES:

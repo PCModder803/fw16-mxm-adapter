@@ -149,7 +149,7 @@ def main():
     rect(board, U1, STIFFENER, 0.2)
     text(board, U1, STIFFENER[0], STIFFENER[1] - 1.5, "INTERPOSER STIFFENER: 4.45 mm above board top - card must not overlap", 1.0)
     poly(board, U2, WALLS, 0.3)
-    text(board, U2, -72.3, -86.65, "PRINTED FRAME INNER WALLS AT BOARD LEVEL (Framework model + rear pocket)", 1.0)
+    text(board, U2, -72.3, -94.3, f"PRINTED FRAME INNER WALLS AT BOARD LEVEL (Framework model, lengthened {REAR_STRETCH} mm at the rear)", 1.0)
     for u, v in COVER_BOSSES:
         c = pcbnew.PCB_SHAPE(board); c.SetShape(pcbnew.SHAPE_T_CIRCLE); c.SetLayer(U2); c.SetWidth(mm(0.3))
         c.SetCenter(P(u, v)); c.SetEnd(P(u + 3.0, v)); board.Add(c)
@@ -157,9 +157,9 @@ def main():
     for box, label in KEEPOUTS:
         rect(board, U2, box, 0.3)
         text(board, U2, box[0] + 0.5, box[1] - 1.0, label, 0.8)
-    text(board, CM, -66, -95, "MECHANICAL PLACEMENT DRAFT - NOT FOR FAB. Parts right of the board are unplaced (staging).", 1.5)
-    text(board, CM, -66, -99, "Laid out for the printed bottom frame (FRAME_PLAN.md): J3's rear end sits in a 3.7 mm pocket in the rear wall.", 1.5)
-    text(board, CM, -66, -102, "Not checked yet: J4/J5 orientation, interposer footprint details, the lid's clearance to the rear pocket.", 1.5)
+    text(board, CM, -66, 14, "MECHANICAL PLACEMENT DRAFT - NOT FOR FAB. Parts right of the board are unplaced (staging).", 1.5)
+    text(board, CM, -66, 17.5, f"Laid out for the printed bottom frame (FRAME_PLAN.md), {REAR_STRETCH} mm longer at the rear: J3's rear end fits inside.", 1.5)
+    text(board, CM, -66, 21, "Not checked yet: J4/J5 orientation, interposer footprint details, the lid's clearance to the longer rear.", 1.5)
 
     board.Save(OUT)
     # KiCad takes board rules from the project file, so record the edge clearance there too.

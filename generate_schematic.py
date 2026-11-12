@@ -424,7 +424,7 @@ place("fw16:J1_FW16_ExpBay_Signal", "J1", "FW16_ExpBay_Signal", J1X, J1Y,
       note="Framework Expansion Bay signal interposer. Pinout from FrameworkComputer/ExpansionBay Electrical/README.md; place at the same XY as J2")
 place("fw16:J3_MXM3_Card", "J3", "AS0B826-S55B-7H", J3X, J3Y,
       ref_at=(5.08, -10.16), val_at=(5.08, -7.62), just="left", fp=FP["MXM"],
-      note="MXM 3.0 Type B socket (target X-Vision RX 6600 XT); S55B: 5.5 mm overall, 2.7 mm card gap (confirm on Foxconn drawing); on a 1.2 mm adapter it needs the flat printed bay cover. Pinout from ADLINK/Advantech MXM 3.1 tables")
+      note="MXM 3.0 Type B socket (target X-Vision RX 6600 XT); S55B: 5.5 mm overall, 2.7 mm card gap (Critical Link; Foxconn's sheet doesn't state it); on a 1.2 mm adapter it needs the flat printed bay cover. Pinout from ADLINK/Advantech MXM 3.1 tables")
 p1 = pos("fw16:J1_FW16_ExpBay_Signal", J1X, J1Y)
 p3 = pos("fw16:J3_MXM3_Card", J3X, J3Y)
 p1n = {libpins["fw16:J1_FW16_ExpBay_Signal"][num][0]: [] for num in p1}
