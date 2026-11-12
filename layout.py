@@ -21,6 +21,9 @@ CARD_V_FRONT = STIFFENER[1] - 0.5
 # moves the cover-screw bosses outboard of both (FRAME_PLAN.md).
 CARD_U_LEFT = -54.3
 CARD = (CARD_U_LEFT, CARD_V_FRONT - 82.0, CARD_U_LEFT + 105.0, CARD_V_FRONT)
+# A Type A card (82 x 70) uses the same socket, finger edge and hold-downs (H3/H4, 66 mm from the finger
+# edge: the side holes on Type B cards sit at the same place, 4 mm short of a Type A card's far edge).
+CARD_A = (CARD_U_LEFT, CARD[1], CARD_U_LEFT + 70.0, CARD[3])
 # J3: socket axis along v. Foxconn's drawing: the card is centred between the pegs (82 mm apart), the
 # ear pads are centred 3 mm past each peg (copper 91.0 mm overall, body 88.9 mm), and the card
 # hold-downs sit 66 mm toward the card.

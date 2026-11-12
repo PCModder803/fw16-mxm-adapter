@@ -118,6 +118,10 @@ generator uses too:
 - Placed: J1/J2 interposers at the 7700S position, J3 along the left edge with the card extending across the
   bay, J4/J5 fan connectors near the 7700S positions, a screw hole and a rear insert at the 7700S fixings.
   Everything else sits unplaced beside the board, with nets, so the ratsnest shows. No tracks.
+- Card size: laid out for a Type B card (82 x 105). A Type A card (82 x 70) fits the same socket and the
+  same two hold-downs (H3/H4, 66 mm from the finger edge, which is also where Type B cards have their side
+  holes), so one board takes either; its far edge is marked on the drawing. Type A cards are limited to
+  about 55-60 W.
 - User layers: the MXM card outline, the interposer stiffener keep-out (4.45 mm tall; the card must not
   overlap it), and the printed frame's inner walls and cover bosses.
 - Why a new frame: in the stock shell the socket's rear end overruns the rear wall (the card is pinned

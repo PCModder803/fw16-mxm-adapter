@@ -127,12 +127,12 @@ def main():
         j3.SetOrientationDegrees(270)
 
     # MXM card hold-downs (Foxconn drawing: dia 6.8 keepouts at footprint x +-37.5, y +66): M2 standoffs,
-    # card gap tall. Positions follow J3's placement.
+    # card gap tall. Positions follow J3's placement. The same two holes take Type A and Type B cards.
     for i, lx in enumerate((-37.5, 37.5)):
         t = math.radians(j3.GetOrientationDegrees())      # KiCad: Y down, positive angle = CCW on screen
         qx = lx * math.cos(t) + 66.0 * math.sin(t); qy = -lx * math.sin(t) + 66.0 * math.cos(t)
         pos = pcbnew.VECTOR2I(j3.GetPosition().x + mm(qx), j3.GetPosition().y + mm(qy))
-        fp = load_fp("MountingHole:MountingHole_2.2mm_M2"); fp.SetReference(f"H{3 + i}"); fp.SetValue("MXM card hold-down")
+        fp = load_fp("MountingHole:MountingHole_2.2mm_M2"); fp.SetReference(f"H{3 + i}"); fp.SetValue("MXM card hold-down (Type A and B)")
         fp.SetPosition(pos); board.Add(fp)
         c = pcbnew.PCB_SHAPE(board); c.SetShape(pcbnew.SHAPE_T_CIRCLE); c.SetLayer(pcbnew.Dwgs_User); c.SetWidth(mm(0.15))
         c.SetCenter(pos); c.SetEnd(pcbnew.VECTOR2I(pos.x + mm(3.4), pos.y)); board.Add(c)
@@ -145,7 +145,9 @@ def main():
     # reference drawings
     U1, U2, CM = pcbnew.Dwgs_User, pcbnew.Cmts_User, pcbnew.Eco1_User
     rect(board, U1, CARD, 0.2)
-    text(board, U1, CARD[0] + 2, CARD[1] + 4, f"MXM CARD 105 x 82 (underside {CARD_GAP} mm above board, S55B)")
+    text(board, U1, CARD[0] + 2, CARD[1] + 4, f"MXM CARD TYPE B 105 x 82 (underside {CARD_GAP} mm above board, S55B)")
+    poly(board, U1, [(CARD_A[2], CARD_A[1]), (CARD_A[2], CARD_A[3])], 0.15)
+    text(board, U1, CARD_A[0] + 2, CARD_A[1] + 6, "TYPE A 70 x 82 ends here (same socket and hold-downs H3/H4)", 1.0)
     rect(board, U1, STIFFENER, 0.2)
     text(board, U1, STIFFENER[0], STIFFENER[1] - 1.5, "INTERPOSER STIFFENER: 4.45 mm above board top - card must not overlap", 1.0)
     poly(board, U2, WALLS, 0.3)

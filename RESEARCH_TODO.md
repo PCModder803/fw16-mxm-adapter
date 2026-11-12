@@ -329,6 +329,10 @@ the community board), are kept locally and not published in this repository.
   - Fixed in the draft: the outline's half-circle notches (round the shell posts, the rear boss and the
     rear pin) were drawn bulging out of the board instead of cutting into it. The CSV gives no arc
     direction; the generator now follows the lead-in edge.
+  - Type A cards (2026-11-11): same socket, finger edge and hold-downs. The X-Vision card's side mounting
+    holes are ~65 mm from its fingers (photo), matching the 66 mm hold-downs on Foxconn's sheet, which is
+    4 mm short of a Type A card's 70 mm far edge. So H3/H4 serve both types; the draft marks where a
+    Type A card ends (u 15.7). Confirm on a Type A card or the MXM mechanical drawing before fab.
   - Card hold-down H4 (rear) was moved clear of the rear shell boss notch at (2.675, -83.65) by keeping
     the card's finger edge at u -54.3; H3/H4 now sit at (11.7, -9.25) / (11.7, -84.25).
   - Also from the model: an EMI gasket (IFGP6_GPU_EMI_GASKET, u -65..-61, v -45.7..-25.3, up to 3.9 mm)
